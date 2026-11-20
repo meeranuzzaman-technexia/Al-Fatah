@@ -1,0 +1,36 @@
+/* ==========================================================================
+   Floating Sticky Actions — WhatsApp (green on hover) & Call Now Pills
+   ========================================================================== */
+
+.sticky-actions {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .sticky-actions {
+    right: 3.2rem;
+    bottom: 3.2rem;
+  }
+}
+
+.sticky-pill {
+  box-shadow: 0 10px 28px rgba(21, 23, 23, 0.24);
+}
+
+.sticky-whatsapp:hover {
+  background: #16a34a;
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(22, 163, 74, 0.38);
+}
+
+.sticky-call:hover {
+  background: #232626;
+  box-shadow: 0 12px 30px rgba(21, 23, 23, 0.34);
+}

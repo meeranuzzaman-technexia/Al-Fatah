@@ -1,0 +1,10 @@
+/* ==========================================================================
+   Video Section — Scroll-driven Clip-Path Expansion
+   ========================================================================== */
+
+.video-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #151717;
+}

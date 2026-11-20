@@ -1,38 +1,51 @@
 import { useEffect, useRef, useState } from "react";
 import { Header } from "./components/Header.jsx";
 import { Hero } from "./components/Hero.jsx";
-import { SearchModal } from "./components/SearchModal.jsx";
-import { WhySection } from "./components/WhySection.jsx";
-import { IdentitySection } from "./components/IdentitySection.jsx";
-import { RewiredSection } from "./components/RewiredSection.jsx";
-import { AgentsSection } from "./components/AgentsSection.jsx";
-import { TestimonialsSection } from "./components/TestimonialsSection.jsx";
-import { ServicesSection } from "./components/ServicesSection.jsx";
-import { SupportSection } from "./components/SupportSection.jsx";
+import { WelcomeSection } from "./components/sections/WelcomeSection.jsx";
+import { WhyVideoSection } from "./components/sections/WhyVideoSection.jsx";
+import { ProjectsSection } from "./components/sections/ProjectsSection.jsx";
+import { StepsSection } from "./components/sections/StepsSection.jsx";
 import { BlogSection } from "./components/BlogSection.jsx";
-import { NeighborhoodsSection } from "./components/NeighborhoodsSection.jsx";
+import { InstagramSection } from "./components/sections/InstagramSection.jsx";
+import { ApprovalsSection } from "./components/sections/ApprovalsSection.jsx";
+import { ContactSection } from "./components/sections/ContactSection.jsx";
 import { FinalCTASection } from "./components/FinalCTASection.jsx";
 import { Footer } from "./components/Footer.jsx";
+import { StickyActions } from "./components/StickyActions.jsx";
 import { useSmoothScroll } from "./hooks/useSmoothScroll.js";
 import { useWordWipe } from "./hooks/useWordWipe.js";
 import { createScrollHelpers } from "./utils/scroll.js";
 
 function App() {
-  const [searchOpen, setSearchOpen] = useState(false);
   const [headerSticky, setHeaderSticky] = useState(false);
+  const [headerHidden, setHeaderHidden] = useState(false);
   const lenisRef = useRef(null);
   const heroRef = useRef(null);
 
-  // Header morph: over-hero (image-1) until the hero starts scrolling away,
-  // then the compact sticky white bar (image-2).
+  // Reverse-sticky header:
+  // - 0..40px: over-hero (logo centred, transparent gradient)
+  // - > 40px: morphs to sticky white bar & logo swipes smoothly to the left
+  // - > 180px: hides on downward scroll, immediately reveals on upward scroll
   useEffect(() => {
+    let lastY = window.scrollY;
+
     const onScroll = () => {
-      const hero = heroRef.current;
-      const threshold = hero
-        ? hero.offsetTop + Math.min(hero.offsetHeight * 0.18, window.innerHeight * 0.35)
-        : 120;
-      setHeaderSticky(window.scrollY > threshold);
+      const y = Math.max(0, window.scrollY);
+      const delta = y - lastY;
+
+      setHeaderSticky(y > 40);
+
+      if (y <= 180) {
+        setHeaderHidden(false);
+      } else if (delta > 3) {
+        setHeaderHidden(true);
+      } else if (delta < -3) {
+        setHeaderHidden(false);
+      }
+
+      lastY = y;
     };
+
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
@@ -42,29 +55,25 @@ function App() {
   useWordWipe();
   const { goTo, handleAnchor } = createScrollHelpers(lenisRef);
 
-  const openSearch = () => setSearchOpen(true);
-
   return (
     <>
-      <Header goTo={goTo} heroRef={heroRef} sticky={headerSticky} />
+      <Header goTo={goTo} sticky={headerSticky} hidden={headerHidden} />
 
       <main>
-        <Hero heroRef={heroRef} onFindProperties={openSearch} />
-        <WhySection />
-        <IdentitySection />
-        <RewiredSection onStartSearch={openSearch} />
-        <AgentsSection goTo={goTo} />
-        <TestimonialsSection />
-        <ServicesSection onGetStarted={openSearch} />
-        <SupportSection goTo={goTo} handleAnchor={handleAnchor} />
+        <Hero heroRef={heroRef} />
+        <WelcomeSection />
+        <WhyVideoSection />
+        <ProjectsSection />
+        <StepsSection />
         <BlogSection goTo={goTo} />
-        <NeighborhoodsSection handleAnchor={handleAnchor} />
-        <FinalCTASection onStartSearch={openSearch} />
+        <InstagramSection />
+        <ApprovalsSection />
+        <ContactSection />
+        <FinalCTASection />
       </main>
 
-      <Footer handleAnchor={handleAnchor} onStartSearch={openSearch} />
-
-      {searchOpen && <SearchModal onClose={() => setSearchOpen(false)} />}
+      <Footer handleAnchor={handleAnchor} />
+      <StickyActions />
     </>
   );
 }

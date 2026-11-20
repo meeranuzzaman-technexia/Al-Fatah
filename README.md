@@ -1,24 +1,27 @@
-# FIND Real Estate — React JSX
+# Al-Fatah Builders & Developers — Homepage (merged build)
 
-Plain **React (JSX)** version of the FIND Real Estate site. No TypeScript anywhere.
+Plain **React (JSX)** site. This is the `Al-Fatah` repo (base) with selected
+sections ported in from the `Al-Fatah-new` variant, all copy replaced with the
+Al-Fatah homepage content, the missing Al-Fatah sections added, and the extra
+FIND-only sections removed.
 
-## Stack
-
-- React 19 + Vite 7
-- Tailwind CSS 4 (`@tailwindcss/vite`)
-- GSAP + ScrollTrigger (hero parallax, reveal animations)
-- Lenis (smooth scroll)
-- Swiper (testimonials slider)
-- goober + clsx + tailwind-merge (styled `Pill` button + class helper)
+See **[MAPPING.md](./MAPPING.md)** for the full section-by-section map and all
+content decisions.
 
 ## Run
 
 ```bash
-npm install
-npm run dev      # http://localhost:5173
-npm run build    # production build -> dist/
-npm run preview  # preview the production build
+npm install       # or npm ci
+npm run dev       # http://localhost:5173
+npm run build     # production build -> dist/ (single-file output)
+npm run preview
 ```
+
+## Stack
+
+- React 19 + Vite 7 (JSX, no TypeScript)
+- Modular plain CSS under `src/styles/` (one file per section + `tokens.css` / `base.css` / `ui.css`)
+- GSAP + ScrollTrigger, Lenis smooth scroll, Swiper slider
 
 ## Structure
 
@@ -26,71 +29,113 @@ npm run preview  # preview the production build
 index.html
 vite.config.js
 src/
-  main.jsx                 # React entry (createRoot)
-  App.jsx                  # page composition only
-  index.css                # unchanged design system / all styling
-  data.js                  # nav, testimonials, services, blog, listings, neighborhoods
+  main.jsx                     # React entry
+  App.jsx                      # page composition only
+  index.css                    # imports Tailwind + tokens.css + base.css + ui.css
+  data.js                      # ALL Al-Fatah homepage content (single source)
+  styles/
+    tokens.css                 # fonts, colours, unified typography & spacing tokens
+    base.css                   # reset, body/heading defaults, .container & .section
+    ui.css                     # .eyebrow, .section-title, .body-text, .btn, .pill-button
+    header.css                 # Header (over-hero / sticky, mega menu, mobile drawer)
+    hero.css                   # Hero parallax tower, clouds, outline wordmark, scroll cue
+    welcome.css                # Director's Welcome 2-column section
+    video.css                  # Dedicated video section
+    projects.css               # Our Projects dark hover-row section
+    steps.css                  # Why Choose Us sticky + numbered steps
+    news.css                   # News Feed rows
+    instagram.css              # Instagram Feed Swiper carousel
+    approvals.css              # Membership & Approvals
+    contact.css                # Contact block + inquiry form
+    final-cta.css              # Final CTA banner
+    footer.css                 # Site footer
+    sticky-actions.css         # Floating WhatsApp & Call Now pills
   components/
-    Brand.jsx              # Logo, ArrowIcon, ChevronDown (SVG icons)
-    Pill.jsx               # goober-styled CTA pill
-    Header.jsx             # two-state morphing header (over-hero → sticky)
-    Hero.jsx               # parallax hero (GSAP scroll timeline)
-    SearchModal.jsx        # property search dialog
-    WhySection.jsx
-    IdentitySection.jsx
-    RewiredSection.jsx     # "Real Estate, Rewired." 3-step block
-    AgentsSection.jsx
-    TestimonialsSection.jsx# Swiper reviews carousel
-    ServicesSection.jsx    # hover-expand Buy / Sell / Rent rows
-    SupportSection.jsx
-    BlogSection.jsx
-    NeighborhoodsSection.jsx
-    FinalCTASection.jsx
-    Footer.jsx             # newsletter + contacts + socials + legal
+    Brand.jsx                  # text-based Al-Fatah SVG wordmark + icons
+    Header.jsx                 # two-state header + projects mega menu
+    Hero.jsx                   # parallax hero, Al-Fatah copy
+    Pill.jsx                   # Pill button + PillLink (link variant)
+    Footer.jsx                 # footer WITHOUT .footer-top
+    FinalCTASection.jsx        # .final-cta
+    BlogSection.jsx            # News Feed
+    StickyActions.jsx          # Floating WhatsApp / Call Now
+    ported/ui.jsx              # Shared Container, Line, Button, ArrowRight
+    sections/
+      WelcomeSection.jsx       # 2-column Director's Welcome
+      WhyVideoSection.jsx      # Dedicated scroll-expanding video section
+      ProjectsSection.jsx      # "Our Projects" hover rows
+      StepsSection.jsx         # "Why Choose Us" + GSAP animation
+      InstagramSection.jsx     # Instagram Swiper slider
+      ApprovalsSection.jsx     # Membership & Approvals
+      ContactSection.jsx       # Contact block + message form
   hooks/
-    useSmoothScroll.js     # Lenis + GSAP registration & helpers
-    useWordWipe.js         # scroll-driven word-by-word text colour fill
-  utils/
-    cn.js                  # clsx + tailwind-merge
-    scroll.js              # goTo / handleAnchor scroll helpers
+    useSmoothScroll.js         # Lenis + GSAP hero / reveal
+    useWordWipe.js             # scroll-driven word wipe
+    useGsapScope.js            # GSAP context hook
+  utils/                       # cn + anchor scroll helpers
 public/
-  images/                  # all site images + video
+  fonts/                       # OptimaLTPro-Roman.woff2 & Graphik-Regular.woff2
+  images/                      # image assets
 ```
 
-## Header states
+## Ported sections (from Al-Fatah-new)
 
-The header animates between two layouts on scroll (see the reference stills):
+`WhyUs` (video), `Rewired` (Steps), `Services`, and `Testimonials` were copied
+1:1 — TSX → JSX, type annotations removed — including their goober CSS and all
+GSAP animations. A `:root` block at the end of `index.css` supplies the exact
+design tokens those components expect, so their colours and fonts are
+unchanged. The original `--ink` / `--soft` / `--blue` tokens are untouched for
+the sections that stayed on the base design.
 
-- **over-hero** — full-bleed translucent bar. Nav splits around a centred
-  FIND wordmark (`Search · Neighborhoods · Agents` left, rest right), white text,
-  outlined Sign In pill.
-- **sticky** — compact solid-white bar. The wordmark slides to the far left, the
-  nav merges into one centred row, text turns grey, Sign In becomes a dark pill.
+## Media / fonts / colours
 
-Everything is CSS-transitioned off a single `sticky` prop set in `App.jsx`;
-there is no layout thrash because both states share the same grid.
-
-## Word wipe animation
-
-Large copy fills in word-by-word as it scrolls into view (grey → full contrast),
-matching the live FIND site. Opt in by adding attributes:
-
-```jsx
-<p data-word-wipe data-wipe-color="#151717">Your copy…</p>
-```
-
-- `data-wipe-color` — final colour (default `#151717`)
-- `data-wipe-soft` — starting colour (default `var(--muted)`)
-- Dark sections: `data-wipe-color="#ffffff" data-wipe-soft="rgba(255,255,255,0.35)"`
-- Nested `<span>` / `.muted` / `.em` emphasis is skipped and keeps its own colour
-- Put the attribute on a plain block element (never on a CSS grid/flex container)
-- `prefers-reduced-motion` users get static, fully readable text
-
-Active sections: Why, Identity, Agents, Services brief, Support, Blog.
+- **No image, video, logo or font was taken from the live alfatahbuilders.com
+  site.** All images are the ones already in `public/images/`.
+- The video in `WhyVideoSection` is the placeholder from the `Al-Fatah-new`
+  variant (Pexels) — `VIDEO` in `src/data.js`. Replace it later.
+- ABAD / Malir Board / NOC are text placeholders (no logos were downloaded).
+- Fonts: unchanged (`Instrument Sans` / `Lora` families). As in the original
+  repo, the local `instrument-sans.woff2` / `lora.woff2` files are not included,
+  so the browser falls back to system fonts until you add them.
+- Colours: unchanged in both design systems (`#151717`, `#fff`, `#d92424`
+  accent, `--soft` grey).
 
 ## Notes
 
-- `index.css` is carried over unchanged so the design renders 1:1 with the original design.
-- All component class names match the original stylesheet.
-- Fonts (`/images/instrument-sans.woff2`, `/images/lora.woff2`) are referenced by the CSS but were not part of the source repo — the site falls back to system fonts until you drop those files into `public/images/`.
-- `vite.config.js` has `server.allowedHosts: [".e2b.app"]` only so the dev server can be opened inside an online sandbox preview. It has no effect on `localhost` — remove that line if you prefer.
+- `#welcome` + `#video` split (`WelcomeSection.jsx` + `WhyVideoSection.jsx`):
+  `id="welcome"` now renders the 2-column Director's Welcome layout (Director
+  visual card on the left with `AHMED MAZHAR` / `DIRECTOR, AL FATAH BUILDERS
+  & DEVELOPERS`; `WELCOME TO`, heading, body copy, `About us` button, and
+  question phone block on the right). Right after `#welcome`, `#video` renders
+  the dedicated full-width video section with the original scroll-driven
+  `clipPath` inset-to-full animation and GSAP reveals preserved.
+- Fonts & consistent sizing (`public/fonts/` + `index.css`): `OptimaLTPro Roman`
+  (`OptimaLTPro-Roman.woff2`) is used for all headings (`h1`–`h6`) and
+  `Graphik` Regular (`Graphik-Regular.woff2`) for all body/UI text. Section
+  main headings (`--text-h2`), subheadings (`--text-h3`), body copy
+  (`--text-body`), eyebrows (`--text-eyebrow`), container width
+  (`--container-max: 144rem`), gutters (`--gutter`), and vertical section
+  padding (`--section-y`) are unified across the site (Hero `h1` and
+  hover-expand `ProjectsSection` titles keep their display scale).
+- Hero tuning (`index.css` + `hooks/useSmoothScroll.js`): the attached
+  `Brishna Heights   .png` is the `.hero-house` tower and is visible from the
+  first frame (`top: 34vh`, `height: 116rem`). The `.hero-smoke` layer was
+  removed — its PNG painted a hard grey horizontal band over the building
+  during the scroll animation. The white `.hero-overlay` is now only a soft
+  16rem bottom fade. The outlined "Al-Fatah" reveal and its descriptor are
+  **black** (`#151717`) with a white halo for legibility.
+- Scroll / animation feel: Lenis `duration: 1.9`, `wheelMultiplier: 0.8`;
+  GSAP hero timeline uses `scrub: 1.4` + `sine.inOut` eases, no hard cuts;
+  anchor scrolls last 1.6s and the SCROLL cue pulses every 3s. Adjust these
+  in `hooks/useSmoothScroll.js`, `utils/scroll.js` and `.scroll-cue i`.
+- Header wordmark: `Brand.jsx` renders a tight single-line "Al-Fatah" SVG; size
+  is controlled by `.brand-logo` in `index.css` (10.5rem over the hero, 9.5rem
+  sticky, 8.5rem on small screens). The adjacent descriptor is
+  `.brand-wordmark`. Increase/decrease those two values to resize the lockup.
+- `dist/index.html` is a single-file build (vite-plugin-singlefile).
+- `vite.config.js` keeps `server.allowedHosts: [".e2b.app"]` for sandbox
+  previews; it has no effect on localhost.
+- Internal page links (`/about-us/`, `/al-fatah-icon/`, …) keep the exact paths
+  from the source site. Main nav items use working in-page anchors for this
+  single-page preview; `navGroups[].path` holds the original destination.
+- The contact form is front-end only — no backend is wired.

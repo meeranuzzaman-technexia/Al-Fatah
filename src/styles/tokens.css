@@ -1,0 +1,73 @@
+/* ==========================================================================
+   Design Tokens — Fonts, Colours, Typography Scale, Layout & Spacing
+   Edit values here to adjust fonts, colours, sizes, or section padding
+   consistently across the entire website.
+   ========================================================================== */
+
+@font-face {
+  font-family: "OptimaLTPro Roman";
+  src: url("/fonts/OptimaLTPro-Roman.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("/fonts/Graphik-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  /* Palette */
+  --ink: #151717;
+  --muted: #b3b3b3;
+  --line: rgba(21, 23, 23, 0.1);
+  --paper: #ffffff;
+  --soft: #f1f1f1;
+  --blue: #0496ff;
+
+  --color-text: #151717;
+  --color-bg: #ffffff;
+  --color-alt: #f1f1f1;
+  --color-dark: #151717;
+  --color-dark-line: #383a3a;
+  --color-line: rgba(21, 23, 23, 0.1);
+  --color-accent: #d92424;
+
+  /* Fonts */
+  --font-heading: "OptimaLTPro Roman", "Optima LT Pro", Optima, Georgia, serif;
+  --font-sans: "Graphik", "Graphik Regular", "Helvetica Neue", Arial, sans-serif;
+
+  /* Unified Type Scale */
+  --text-display: clamp(5.2rem, 8.2vw, 12rem);
+  --text-h2: clamp(3.6rem, 4.4vw, 6.4rem);
+  --text-h3: clamp(2.4rem, 2.4vw, 3.4rem);
+  --text-body: clamp(1.6rem, 1.15vw, 1.8rem);
+  --text-eyebrow: 1.3rem;
+
+  /* Unified Layout & Padding */
+  --container-max: 144rem;
+  --gutter: 2rem;
+  --section-y: 7.2rem;
+  --header-h: 70px;
+
+  font-synthesis: none;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 3.2rem;
+    --section-y: 9.6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --gutter: 4.8rem;
+    --section-y: 12rem;
+    --header-h: 84px;
+  }
+}

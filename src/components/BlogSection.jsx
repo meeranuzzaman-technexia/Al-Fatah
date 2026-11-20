@@ -1,40 +1,34 @@
-import { Pill } from "./Pill.jsx";
-import { blogPosts } from "../data.js";
+import { PillLink } from "./Pill.jsx";
+import { NEWS, blogPosts } from "../data.js";
+import "../styles/news.css";
 
-export function BlogSection({ goTo }) {
+/* News Feed section (kept from the base BlogSection layout). */
+export function BlogSection() {
   return (
-    <section className="section blog" id="resources">
+    <section className="section section-alt news-section" id="news">
       <div className="container">
-        <div className="blog-head reveal">
-          <h2 className="section-heading">
-            Blog <span className="muted">&amp;</span>
-            <br />
-            <span className="muted">Resources</span>
-          </h2>
+        <div className="news-head reveal">
+          <div>
+            <div className="eyebrow">{NEWS.eyebrow}</div>
+            <h2 className="section-title">{NEWS.heading}</h2>
+          </div>
           <div>
             <p data-word-wipe data-wipe-color="#151717">
-              See how we’ve helped clients achieve their real estate dreams, one successful move at a time.
+              {NEWS.intro}
             </p>
-            <Pill text="Visit Our Blog" onClick={() => goTo("#resources")} />
+            <PillLink text={NEWS.cta} href={NEWS.ctaHref} />
           </div>
         </div>
-        <div className="blog-list">
+        <div className="news-list">
           {blogPosts.map((post) => (
-            <article className="blog-row reveal" key={post.title}>
-              <div className="blog-row-main">
-                <div className="blog-date">{post.date}</div>
+            <article className="news-row reveal" key={post.title}>
+              <div className="news-row-main">
+                <div className="news-date">{post.date}</div>
                 <h3>{post.title}</h3>
                 <p>{post.copy}</p>
-                <a className="pill-button light blog-read" href="#resources" onClick={(event) => event.preventDefault()}>
-                  <span className="pill-text">
-                    <span data-text="Read More">Read More</span>
-                  </span>
-                  <span className="pill-arrow" aria-hidden="true">
-                    →
-                  </span>
-                </a>
+                <PillLink text={NEWS.readMore} href={post.href} variant="light" className="news-read" />
               </div>
-              <div className="blog-row-image">
+              <div className="news-row-image">
                 <img src={post.image} alt="" loading="lazy" />
               </div>
             </article>

@@ -9,11 +9,13 @@ gsap.registerPlugin(ScrollTrigger);
 // Kept in its own hook so App.jsx stays lean.
 export function useSmoothScroll(lenisRef, heroRef) {
   useLayoutEffect(() => {
+    // Slower, calmer scroll: longer easing + a gentler wheel multiplier.
     const lenis = new Lenis({
-      duration: 1.15,
+      duration: 1.9,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 1.4,
+      wheelMultiplier: 0.8,
+      touchMultiplier: 1.1,
     });
     lenisRef.current = lenis;
     lenis.on("scroll", ScrollTrigger.update);
@@ -24,22 +26,32 @@ export function useSmoothScroll(lenisRef, heroRef) {
 
     const ctx = gsap.context(() => {
       if (heroRef.current) {
+        // One continuous, gently eased timeline. scrub > 1 lets GSAP catch up
+        // smoothly with Lenis instead of snapping to every wheel tick.
         gsap
           .timeline({
+            defaults: { ease: "sine.inOut" },
             scrollTrigger: {
               trigger: heroRef.current,
               start: "top top",
               end: "bottom bottom",
-              scrub: 1,
+              scrub: 1.4,
+              invalidateOnRefresh: true,
             },
           })
-          .to(".hero-content", { y: -180, opacity: 0, scale: 0.96, ease: "none" }, 0)
-          .to(".hero-house", { y: -120, scale: 1.08, ease: "none" }, 0)
-          .to(".hero-cloud.left", { x: -180, y: 50, ease: "none" }, 0)
-          .to(".hero-cloud.right", { x: 180, y: 60, ease: "none" }, 0)
-          .to(".hero-smoke", { y: -220, opacity: 0.65, ease: "none" }, 0)
-          .fromTo(".hero-logo-reveal", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, ease: "none" }, 0.5)
-          .to(".hero-logo-reveal", { opacity: 0, scale: 1.35, ease: "none" }, 0.88);
+          .to(".hero-content", { y: -110, opacity: 0, scale: 0.975, duration: 1 }, 0)
+          .to(".hero-house", { y: -150, scale: 1.07, duration: 1.85 }, 0)
+          .to(".hero-cloud.left", { x: -120, y: 34, duration: 1.85 }, 0)
+          .to(".hero-cloud.right", { x: 120, y: 40, duration: 1.85 }, 0)
+          // Black outlined wordmark cross-fades in as the headline leaves,
+          // then drifts out — no hard cuts.
+          .fromTo(
+            ".hero-logo-reveal",
+            { opacity: 0, scale: 0.9 },
+            { opacity: 1, scale: 1, duration: 0.85 },
+            0.55
+          )
+          .to(".hero-logo-reveal", { opacity: 0, scale: 1.12, duration: 0.7 }, 1.45);
       }
 
       gsap.utils.toArray(".reveal").forEach((element) => {

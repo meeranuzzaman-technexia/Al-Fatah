@@ -1,7 +1,9 @@
 import { Logo } from "./Brand.jsx";
-import { Pill } from "./Pill.jsx";
+import { PillLink } from "./Pill.jsx";
+import { HERO } from "../data.js";
+import "../styles/hero.css";
 
-export function Hero({ heroRef, onFindProperties }) {
+export function Hero({ heroRef }) {
   return (
     <section className="hero-scroll" id="top" ref={heroRef}>
       <div className="hero-sticky">
@@ -20,24 +22,21 @@ export function Hero({ heroRef, onFindProperties }) {
               <img src="/images/cloud.c8800fa9.png" alt="" />
             </div>
           </div>
-          <div className="hero-smoke">
-            <img src="/images/smoke.9f683cb4.png" alt="" />
-          </div>
+          {/* .hero-smoke removed — its PNG painted a hard grey horizontal band
+              across the building during the scroll animation. */}
           <div className="hero-overlay" />
         </div>
         <div className="hero-logo-reveal" aria-hidden="true">
           <Logo />
-          <span>Real Estate</span>
+          <span>Builders &amp; Developers</span>
         </div>
         <div className="hero-content">
           <div className="hero-title">
-            <h1>Find What Moves You</h1>
+            <h1>{HERO.heading}</h1>
           </div>
-          <p className="hero-text">
-            Expert agents. Real guidance. <span className="em">A clear path to find what’s next.</span>
-          </p>
+          <p className="hero-text">{HERO.sub}</p>
           <div className="hero-actions">
-            <Pill text="Find Properties" onClick={onFindProperties} />
+            <PillLink text={HERO.cta} href={HERO.ctaHref} />
           </div>
         </div>
         <div className="scroll-cue" aria-hidden="true">

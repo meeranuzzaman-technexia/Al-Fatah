@@ -1,0 +1,273 @@
+/* ==========================================================================
+   Hero Section — Scroll-driven Parallax Tower, Clouds & Outlined Wordmark
+   ========================================================================== */
+
+.hero-scroll {
+  position: relative;
+  height: 280vh;
+  background: #fff;
+}
+
+.hero-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  min-height: 64rem;
+  overflow: hidden;
+}
+
+.hero-bg,
+.hero-back {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.hero-house {
+  position: absolute;
+  top: 34vh;
+  left: 0;
+  right: 0;
+  height: 116rem;
+  z-index: 1;
+  transform-origin: bottom center;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.hero-house img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  filter: contrast(1.06) saturate(1.08);
+}
+
+.hero-clouds {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-cloud {
+  position: absolute;
+  z-index: 2;
+  opacity: 0.95;
+}
+
+.hero-cloud.left {
+  top: 25%;
+  left: -33.72rem;
+  width: 112.4rem;
+  height: 47.7rem;
+}
+
+.hero-cloud.right {
+  top: 20%;
+  right: -33.72rem;
+  width: 93.6rem;
+  height: 39.7rem;
+}
+
+.hero-cloud img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 16rem;
+  z-index: 3;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.55));
+  pointer-events: none;
+}
+
+/* Outlined Al-Fatah reveal */
+.hero-logo-reveal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(85vw, 97.7rem);
+  z-index: 3;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero-logo-reveal svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.hero-logo-reveal svg path,
+.hero-logo-reveal svg text {
+  fill: transparent;
+  stroke: #151717;
+  stroke-width: 1.7px;
+}
+
+.hero-logo-reveal span {
+  display: block;
+  margin-top: 1rem;
+  color: #151717;
+  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.9);
+  text-align: center;
+  font-size: clamp(1.4rem, 2.2vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: 0.25em;
+}
+
+/* Foreground headline & CTA */
+.hero-content {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 7.8rem 2rem 22.8rem;
+  text-align: center;
+}
+
+.hero-title h1 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-display);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.hero-text {
+  margin: 2rem 0 0;
+  max-width: 64rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.65;
+  text-wrap: balance;
+}
+
+.hero-actions {
+  margin-top: 4rem;
+}
+
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 3.5rem;
+  z-index: 5;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(21, 23, 23, 0.7);
+  text-shadow: 0 1px 8px rgba(255, 255, 255, 0.9);
+}
+
+.scroll-cue i {
+  width: 1px;
+  height: 4rem;
+  background: rgba(21, 23, 23, 0.38);
+  animation: cue 3s ease-in-out infinite;
+}
+
+@keyframes cue {
+  0%, 100% { transform: scaleY(0.4); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+}
+
+@media (max-width: 900px) {
+  .hero-scroll {
+    height: 240vh;
+  }
+
+  .hero-sticky {
+    min-height: 56rem;
+  }
+
+  .hero-house {
+    top: 38vh;
+    height: 100rem;
+  }
+
+  .hero-cloud.left {
+    left: -45rem;
+    top: 32%;
+  }
+
+  .hero-cloud.right {
+    right: -42rem;
+    top: 28%;
+  }
+
+  .hero-content {
+    padding: 8rem 2rem 14rem;
+  }
+
+  .hero-title h1 {
+    font-size: clamp(4.2rem, 8.5vw, 6.8rem);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-scroll {
+    height: 200vh;
+  }
+
+  .hero-house {
+    top: 40vh;
+    height: 78rem;
+  }
+
+  .hero-cloud.left {
+    top: 36%;
+    left: -55rem;
+  }
+
+  .hero-cloud.right {
+    top: 30%;
+    right: -55rem;
+  }
+
+  .hero-content {
+    padding: 8rem 1.6rem 12rem;
+  }
+
+  .hero-title h1 {
+    font-size: clamp(4rem, 10vw, 5.2rem);
+    letter-spacing: -0.025em;
+  }
+
+  .hero-text {
+    margin-top: 1.5rem;
+  }
+
+  .hero-actions {
+    margin-top: 3rem;
+  }
+
+  .scroll-cue {
+    display: none;
+  }
+}

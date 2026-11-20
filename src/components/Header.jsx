@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import { Logo, ChevronDown } from "./Brand.jsx";
-import { navGroups } from "../data.js";
+import { PillLink } from "./Pill.jsx";
+import { HEADER_CTA, navGroups } from "../data.js";
+import "../styles/header.css";
 
-// `sticky` drives the image-1 → image-2 transition:
-//  - false (over hero): full-width transparent bar, links spread left/right of a
-//    centred logo, white text — image-1
-//  - true  (after scrolling): compact white bar with the logo moved to the left
-//    and grey text — image-2
-export function Header({ goTo, heroRef, sticky }) {
+export function Header({ goTo, sticky, hidden }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [mobileGroup, setMobileGroup] = useState(null);
@@ -27,106 +24,83 @@ export function Header({ goTo, heroRef, sticky }) {
     setOpenDropdown(null);
   };
 
-  const navigate = (href) => {
-    closeMenu();
-    goTo(href);
-  };
-
   const onAnchor = (event, href) => {
     event.preventDefault();
     closeMenu();
     goTo(href);
   };
 
+  const renderDropdown = (group) => (
+    <div className="nav-dropdown">
+      {group.items.map((section) => (
+        <div className="nav-dropdown-group" key={section.group}>
+          <span className="nav-dropdown-title">{section.group}</span>
+          {section.links.map((link) => (
+            <a key={link.label} href={link.href}>
+              {link.label}
+            </a>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderNavItem = (group, keyPrefix) => {
+    const key = `${keyPrefix}-${group.label}`;
+    return (
+      <div
+        className={`nav-item ${openDropdown === key ? "open" : ""}`}
+        key={key}
+        onMouseEnter={() => group.items.length && setOpenDropdown(key)}
+        onMouseLeave={() => setOpenDropdown(null)}
+      >
+        <a className="nav-link" href={group.href} onClick={(event) => onAnchor(event, group.href)}>
+          <span data-text={group.label}>{group.label}</span>
+          {group.items.length > 0 && <ChevronDown className="chevron" />}
+        </a>
+        {group.items.length > 0 && renderDropdown(group)}
+      </div>
+    );
+  };
+
+  const isHidden = hidden && !menuOpen;
+
   return (
     <>
-      <header className={`site-header ${sticky ? "sticky" : "over-hero"}`}>
+      <header
+        className={`site-header ${sticky ? "sticky" : "over-hero"} ${isHidden ? "is-hidden" : ""}`.trim()}
+      >
         <div className="header-inner">
-          {/* Renders every link. Over the hero CSS hides items 4-7 here and shows
-              them on the right of the wordmark; in the sticky state all seven
-              sit in this one centred row. */}
-          <nav className="header-nav header-nav-left" aria-label="Primary">
-            {navGroups.map((group, index) => (
-              <div
-                className={`nav-item ${index >= 3 ? "nav-item-right-half" : ""} ${
-                  openDropdown === group.label ? "open" : ""
-                }`}
-                key={group.label}
-                onMouseEnter={() => group.items.length && setOpenDropdown(group.label)}
-                onMouseLeave={() => setOpenDropdown(null)}
-              >
-                <a className="nav-link" href={group.href} onClick={(event) => onAnchor(event, group.href)}>
-                  <span data-text={group.label}>{group.label}</span>
-                  {group.items.length > 0 && <ChevronDown className="chevron" />}
-                </a>
-                {group.items.length > 0 && (
-                  <div className="nav-dropdown">
-                    {group.items.map((item) => (
-                      <a
-                        href={group.href}
-                        key={item}
-                        onClick={(event) => {
-                          event.preventDefault();
-                          navigate(group.href);
-                        }}
-                      >
-                        {item}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+          {/* Over-hero left links (1-3) */}
+          <nav className="header-nav header-nav-left" aria-label="Primary left">
+            {navGroups.slice(0, 3).map((group) => renderNavItem(group, "left"))}
           </nav>
 
-          {/* CENTRE: logo (moves to the left when sticky) */}
+          {/* Animated center-to-left wordmark */}
           <a
             className="brand-link"
             href="#top"
             onClick={(event) => onAnchor(event, "#top")}
-            aria-label="FIND home"
+            aria-label="Al-Fatah — Builders & Developers home"
           >
             <Logo className="brand-logo" />
-            <span className="brand-wordmark">Real Estate</span>
+            <span className="brand-wordmark">Builders &amp; Developers</span>
           </a>
 
-          {/* image-1 only: mirrors items 4-7 to the right of the wordmark */}
-          <nav className="header-nav header-nav-right" aria-hidden="true">
-            {navGroups.slice(3).map((group) => (
-              <div
-                className={`nav-item ${openDropdown === group.label ? "open" : ""}`}
-                key={group.label}
-                onMouseEnter={() => group.items.length && setOpenDropdown(group.label)}
-                onMouseLeave={() => setOpenDropdown(null)}
-              >
-                <a className="nav-link" href={group.href} onClick={(event) => onAnchor(event, group.href)}>
-                  <span data-text={group.label}>{group.label}</span>
-                  {group.items.length > 0 && <ChevronDown className="chevron" />}
-                </a>
-                {group.items.length > 0 && (
-                  <div className="nav-dropdown nav-dropdown-right">
-                    {group.items.map((item) => (
-                      <a
-                        href={group.href}
-                        key={item}
-                        onClick={(event) => {
-                          event.preventDefault();
-                          navigate(group.href);
-                        }}
-                      >
-                        {item}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+          {/* Sticky centered links (1-6) */}
+          <nav className="header-nav header-nav-merged" aria-label="Primary">
+            {navGroups.map((group) => renderNavItem(group, "merged"))}
           </nav>
 
-          <div className="header-actions">
-            <a className="sign-in" href="https://app.findrealestate.com/login" target="_blank" rel="noreferrer">
-              <span data-text="Sign In">Sign In</span>
-            </a>
+          {/* Right cluster: over-hero right links (4-6) + Call Now pill */}
+          <div className="header-right-cluster">
+            <nav className="header-nav header-nav-right" aria-label="Primary right">
+              {navGroups.slice(3).map((group) => renderNavItem(group, "right"))}
+            </nav>
+
+            <div className="header-actions">
+              <PillLink text={HEADER_CTA.label} href={HEADER_CTA.href} className="header-cta" />
+            </div>
           </div>
 
           <button
@@ -154,25 +128,21 @@ export function Header({ goTo, heroRef, sticky }) {
                 <ChevronDown className="chevron" />
               </button>
               <div className={`mobile-submenu ${mobileGroup === group.label ? "open" : ""}`}>
-                {group.items.map((item) => (
-                  <a
-                    href={group.href}
-                    key={item}
-                    onClick={(event) => {
-                      event.preventDefault();
-                      navigate(group.href);
-                    }}
-                  >
-                    {item}
-                  </a>
+                {group.items.map((section) => (
+                  <div className="mobile-submenu-group" key={section.group}>
+                    <span>{section.group}</span>
+                    {section.links.map((link) => (
+                      <a key={link.label} href={link.href} onClick={closeMenu}>
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
                 ))}
               </div>
             </div>
           )
         )}
-        <a className="mobile-signin" href="https://app.findrealestate.com/login" target="_blank" rel="noreferrer">
-          Sign In
-        </a>
+        <PillLink text={HEADER_CTA.label} href={HEADER_CTA.href} className="mobile-signin" />
       </div>
     </>
   );

@@ -1,0 +1,144 @@
+/* ==========================================================================
+   Base Styles — Reset, Typography Defaults, Containers, Scroll & Motion
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  overflow-x: hidden;
+  background: var(--color-bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+}
+
+em {
+  font-family: var(--font-heading);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--ink);
+  color: #fff;
+}
+
+/* Lenis smooth scroll */
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Shared container & section spacing */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  position: relative;
+  padding: var(--section-y) 0;
+  overflow: clip;
+}
+.section-video{
+  position: relative;
+  overflow: clip;
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+
+.section-alt {
+  background: var(--color-alt);
+}
+
+.section-dark {
+  background: var(--color-dark);
+  color: #fff;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* Word wipe (scroll-driven text colour fill) */
+.word-wipe-word {
+  display: inline-block;
+  will-change: color;
+}
+
+[data-word-wipe] {
+  --wipe-active: #151717;
+  --wipe-soft: var(--muted);
+}
+
+[data-word-wipe] .word-wipe-word {
+  color: var(--wipe-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  [data-word-wipe] .word-wipe-word {
+    color: var(--wipe-active) !important;
+  }
+}

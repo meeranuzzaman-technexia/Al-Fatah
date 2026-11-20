@@ -1,17 +1,20 @@
-import { Pill } from "./Pill.jsx";
+import { PillLink } from "./Pill.jsx";
+import { FINAL_CTA, MEDIA } from "../data.js";
+import "../styles/final-cta.css";
 
-export function FinalCTASection({ onStartSearch }) {
+export function FinalCTASection() {
   return (
-    <section className="final-cta" id="cta">
+    <section className="final-cta">
       <div className="final-bg" aria-hidden="true">
-        <img src="/images/2.41633fa6.webp" alt="" loading="lazy" />
+        <img src={MEDIA.finalCta} alt="" loading="lazy" />
       </div>
       <div className="final-inner">
         <h2 className="final-title reveal">
-          Find You. <span>We’ll Help You Get There.</span>
+          {FINAL_CTA.title} <span>{FINAL_CTA.titleEm}</span>
         </h2>
+        <p className="final-sub reveal">{FINAL_CTA.sub}</p>
         <div className="reveal">
-          <Pill text="Let’s Get Started" variant="light" onClick={onStartSearch} />
+          <PillLink text={FINAL_CTA.cta} href={FINAL_CTA.ctaHref} variant="light" />
         </div>
       </div>
     </section>

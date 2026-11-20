@@ -1,0 +1,84 @@
+/* ==========================================================================
+   Final CTA Section — Full-Bleed Background Offer
+   ========================================================================== */
+
+.final-cta {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 72rem;
+  overflow: hidden;
+  color: #fff;
+  background: #151717;
+}
+
+.final-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.final-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(21, 23, 23, 0.45), rgba(21, 23, 23, 0.7));
+}
+
+.final-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.final-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.2rem;
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: var(--section-y) var(--gutter);
+  text-align: center;
+}
+
+.final-title {
+  margin: 0;
+  max-width: 110rem;
+  font-family: var(--font-heading);
+  font-size: var(--text-h2);
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+}
+
+.final-title span {
+  font-family: var(--font-heading);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.final-sub {
+  margin: 0;
+  max-width: 70rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 1024px) {
+  .final-cta {
+    min-height: 58rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .final-cta {
+    min-height: 48rem;
+  }
+}

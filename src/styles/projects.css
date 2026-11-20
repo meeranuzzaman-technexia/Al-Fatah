@@ -1,0 +1,172 @@
+/* ==========================================================================
+   Projects Section — Dark Theme, Hover-Expanding Rows & Preview Media
+   ========================================================================== */
+
+.projects-head {
+  display: grid;
+  gap: 4rem;
+  margin-bottom: clamp(5.6rem, 7vw, 12rem);
+}
+
+@media (min-width: 1024px) {
+  .projects-head {
+    grid-template-columns: 1.2fr 1fr;
+    align-items: end;
+  }
+}
+
+.projects-intro {
+  margin: 0;
+  max-width: 56rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.projects-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.projects-row {
+  border-top: 1px solid var(--color-dark-line);
+}
+
+.projects-row:last-child {
+  border-bottom: 1px solid var(--color-dark-line);
+}
+
+.projects-row.active {
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.projects-row-link {
+  display: block;
+  padding: clamp(3.6rem, 4.4vw, 7.2rem) 0;
+  color: #fff;
+}
+
+.projects-row-link:hover .projects-label {
+  transform: translateX(1.6rem);
+}
+
+.projects-row-link:hover .projects-media {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.projects-row-link:hover .projects-arrow {
+  transform: translateX(1rem);
+}
+
+.projects-row-grid {
+  display: grid;
+  gap: 1.8rem;
+  align-items: center;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+@media (min-width: 1024px) {
+  .projects-row-grid {
+    grid-template-columns: 9rem 1.1fr 1fr 28rem 4rem;
+    gap: 4rem;
+  }
+}
+
+.projects-num {
+  font-family: var(--font-heading);
+  font-size: var(--text-body);
+  color: var(--color-accent);
+}
+
+.projects-label {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(3.4rem, 4.6vw, 7.2rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.projects-row-text {
+  margin: 0;
+  max-width: 46rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.projects-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 4px;
+  opacity: 0;
+  transform: translateX(4rem);
+  transition: opacity 0.6s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.projects-media > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.projects-arrow {
+  justify-self: end;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (max-width: 1023px) {
+  .projects-media,
+  .projects-arrow {
+    display: none;
+  }
+}
+
+.projects-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.4rem;
+  margin-top: clamp(4.8rem, 5vw, 8rem);
+}
+
+.projects-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2.2rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-eyebrow);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.projects-controls > button {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: #fff;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  transition: color 0.25s ease;
+}
+
+.projects-controls > button:hover {
+  color: var(--color-accent);
+}
+
+.projects-controls > a:hover {
+  color: #fff;
+}

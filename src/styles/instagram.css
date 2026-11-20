@@ -1,0 +1,152 @@
+/* ==========================================================================
+   Instagram Feed Section — Swiper Carousel, Bio & Social Links
+   ========================================================================== */
+
+.instagram-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 3.2rem;
+  margin-bottom: clamp(3.2rem, 4vw, 6.4rem);
+}
+
+.instagram-controls {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.instagram-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 5.6rem;
+  height: 5.6rem;
+  border-radius: 50%;
+  border: 1px solid rgba(21, 23, 23, 0.3);
+  background: #fff;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.5s cubic-bezier(0.34, 3.56, 0.64, 1);
+}
+
+.instagram-nav-btn:hover {
+  background: #151717;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.instagram-nav-prev {
+  display: inline-flex;
+  transform: rotate(180deg);
+}
+
+.instagram-count {
+  min-width: 8.4rem;
+  margin-left: 1.2rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-eyebrow);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+.instagram-bio {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 2.8rem;
+  max-width: 90rem;
+  margin: 0 0 clamp(4rem, 5vw, 6.4rem);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(21, 23, 23, 0.78);
+}
+
+.instagram-bio > span {
+  white-space: nowrap;
+}
+
+.instagram-slide {
+  box-sizing: border-box;
+  width: clamp(30rem, 42vw, 62rem);
+  min-height: clamp(32rem, 30vw, 42rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2.4rem;
+  padding: clamp(2.8rem, 3vw, 4.4rem);
+  border-radius: 6px;
+  background: var(--color-alt);
+}
+
+.instagram-quote {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-h3);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.instagram-detail {
+  margin: 1.8rem 0 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(21, 23, 23, 0.78);
+}
+
+.instagram-author {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.2rem;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-eyebrow);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.instagram-author-sep {
+  opacity: 0.4;
+}
+
+.instagram-author > a {
+  border-bottom: 1px solid currentColor;
+}
+
+.instagram-author > a:hover {
+  color: var(--color-accent);
+}
+
+.instagram-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 3.2rem;
+  margin-top: clamp(4rem, 5vw, 7.2rem);
+}
+
+.instagram-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-width: 62rem;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(21, 23, 23, 0.78);
+}
+
+.instagram-contact a:hover {
+  color: var(--color-accent);
+}

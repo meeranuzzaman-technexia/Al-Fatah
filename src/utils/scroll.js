@@ -7,7 +7,7 @@ export function createScrollHelpers(lenisRef) {
     const target = document.querySelector(href);
     if (!target) return;
     if (lenisRef.current) {
-      lenisRef.current.scrollTo(target, { offset: -78, duration: 1.15 });
+      lenisRef.current.scrollTo(target, { offset: -78, duration: 1.6 });
     } else {
       window.scrollTo({ top: target.offsetTop - 78, behavior: "smooth" });
     }
