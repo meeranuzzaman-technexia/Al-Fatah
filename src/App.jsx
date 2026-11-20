@@ -4,6 +4,7 @@ import { Hero } from "./components/Hero.jsx";
 import { WelcomeSection } from "./components/sections/WelcomeSection.jsx";
 import { WhyVideoSection } from "./components/sections/WhyVideoSection.jsx";
 import { ProjectsSection } from "./components/sections/ProjectsSection.jsx";
+import { ElevationSection } from "./components/sections/ElevationSection.jsx";
 import { StepsSection } from "./components/sections/StepsSection.jsx";
 import { BlogSection } from "./components/BlogSection.jsx";
 import { InstagramSection } from "./components/sections/InstagramSection.jsx";
@@ -64,8 +65,9 @@ function App() {
         <WelcomeSection />
         <WhyVideoSection />
         <ProjectsSection />
+        <ElevationSection />
         <StepsSection />
-        <BlogSection goTo={goTo} />
+        <BlogSection lenisRef={lenisRef} />
         <InstagramSection />
         <ApprovalsSection />
         <ContactSection />

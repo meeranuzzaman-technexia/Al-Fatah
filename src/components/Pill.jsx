@@ -7,12 +7,14 @@ export function Pill({
   className = "",
   type = "button",
   icon = null,
+  disabled = false,
 }) {
   return (
     <button
       type={type}
+      disabled={disabled}
       onClick={onClick}
-      className={`pill-button ${variant === "light" ? "light" : ""} ${variant === "outline" ? "outline" : ""} ${className}`.trim()}
+      className={`pill-button ${variant === "light" ? "light" : ""} ${variant === "outline" ? "outline" : ""} ${variant === "outline-dark" ? "outline-dark" : ""} ${className}`.trim()}
     >
       {icon && <span className="pill-icon" aria-hidden="true">{icon}</span>}
       <span className="pill-text">

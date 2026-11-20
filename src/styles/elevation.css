@@ -1,0 +1,145 @@
+/* ==========================================================================
+   3D Elevation Showcase Section — Interactive Perspective Building Viewer
+   ========================================================================== */
+
+.elevation-section {
+  background: var(--ink);
+  color: #fff;
+  padding-top: 0;
+}
+
+.elevation-top-rule {
+  padding-top: var(--section-y);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.elevation-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr);
+  align-items: end;
+  gap: 4.8rem;
+  margin-bottom: 5.2rem;
+}
+
+.elevation-eyebrow {
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.elevation-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.8rem;
+}
+
+.elevation-intro-text {
+  margin: 0;
+  max-width: 44rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* Interactive 3D BuildingViewer */
+.building-viewer {
+  position: relative;
+  width: 100%;
+  perspective: 1200px;
+  outline: none;
+  cursor: grab;
+}
+
+.building-viewer:focus-visible .building-viewer-frame {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.45);
+}
+
+.building-viewer-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1170 / 570;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #0b1118;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.building-viewer-photo {
+  position: absolute;
+  inset: 0;
+  transform: scale(1.08);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.building-viewer-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.building-viewer-vignette {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.45);
+}
+
+/* Footer caption bar below the 3D render */
+.elevation-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem 3.2rem;
+  margin-top: 2.4rem;
+  padding-top: 2.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: var(--font-sans);
+  font-size: var(--text-eyebrow);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.elevation-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.elevation-hint-dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  flex: none;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 10px rgba(74, 222, 128, 0.7);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .building-viewer-frame,
+  .building-viewer-photo {
+    transition: none;
+  }
+
+  .building-viewer-photo {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 900px) {
+  .elevation-head {
+    grid-template-columns: 1fr;
+    gap: 2.4rem;
+    margin-bottom: 3.6rem;
+  }
+
+  .building-viewer-frame {
+    aspect-ratio: 16 / 10;
+  }
+}

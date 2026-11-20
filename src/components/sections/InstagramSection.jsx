@@ -1,15 +1,42 @@
-/* Instagram Feed section — Swiper carousel, prev/next controls & GSAP reveals. */
-import { useRef, useState } from "react";
+/* Instagram Feed section — SmoothUI ExpandableCards + profile summary + meta strip. */
+import { useState } from "react";
 import gsap from "gsap";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import { INSTAGRAM } from "../../data.js";
+import { INSTAGRAM, MEDIA } from "../../data.js";
 import { useGsapScope } from "../../hooks/useGsapScope.js";
-import { ArrowRight, Container, Line } from "../ported/ui.jsx";
+import { Container, Line } from "../ported/ui.jsx";
 import { PillLink } from "../Pill.jsx";
+import { ExpandableCards } from "../ExpandableCards.jsx";
 import "../../styles/instagram.css";
 
+function InstagramGlyph() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="12" cy="12" r="4.5" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
+    </svg>
+  );
+}
+
+const cleanBioItems = INSTAGRAM.bio.map((line) => line.replace(/^[^\w\d]+/u, "").trim());
+
+const igCards = INSTAGRAM.posts.map((post, index) => ({
+  id: index + 1,
+  title: post.caption,
+  content: post.detail,
+  image: MEDIA.project[index % MEDIA.project.length],
+  href: post.href,
+  isReel: post.href.includes("/reel/"),
+  author: {
+    image: MEDIA.director,
+    name: `@${INSTAGRAM.handle}`,
+    role: post.tag,
+  },
+}));
+
 export function InstagramSection() {
+  const [selected, setSelected] = useState(null);
+
   const ref = useGsapScope((scope) => {
     gsap.from(scope.querySelectorAll("[data-line]"), {
       yPercent: 110,
@@ -27,96 +54,64 @@ export function InstagramSection() {
     });
   });
 
-  const swiperRef = useRef(null);
-  const [active, setActive] = useState(0);
-  const total = INSTAGRAM.posts.length;
-
   return (
     <section ref={ref} className="section instagram-section" data-header-theme="light">
       <Container>
         <div className="instagram-head">
-          <h2 className="section-title">
-            {INSTAGRAM.titleLines.map((line, index) => (
-              <Line key={line}>{index === 1 ? <em>{line}</em> : line}</Line>
-            ))}
-          </h2>
-
-          <div className="instagram-controls" data-fade="">
-            <button
-              type="button"
-              className="instagram-nav-btn"
-              aria-label="Previous post"
-              onClick={() => swiperRef.current?.slidePrev()}
-            >
-              <span className="instagram-nav-prev">
-                <ArrowRight size={18} />
-              </span>
-            </button>
-            <button
-              type="button"
-              className="instagram-nav-btn"
-              aria-label="Next post"
-              onClick={() => swiperRef.current?.slideNext()}
-            >
-              <ArrowRight size={18} />
-            </button>
-            <span className="instagram-count">
-              {String(active + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+          <div className="instagram-heading-col">
+            <span className="eyebrow instagram-eyebrow" data-fade="">
+              <InstagramGlyph />
+              <span>Instagram · @{INSTAGRAM.handle}</span>
             </span>
+            <h2 className="section-title">
+              <Line>Life at Al-Fatah</Line>
+              <Line>
+                <em>50 Years of Service.</em>
+              </Line>
+            </h2>
+          </div>
+
+          <div className="instagram-head-actions" data-fade="">
+            <PillLink text={INSTAGRAM.cta} href={INSTAGRAM.ctaHref} target="_blank" rel="noreferrer" />
           </div>
         </div>
 
-        <div className="instagram-bio" data-fade="">
-          {INSTAGRAM.bio.map((line) => (
-            <span key={line}>{line}</span>
-          ))}
+        <div className="instagram-profile-bar" data-fade="">
+          <div className="instagram-bio">
+            {cleanBioItems.map((line) => (
+              <span key={line} className="instagram-bio-pill">
+                {line}
+              </span>
+            ))}
+          </div>
+          <span className="instagram-hint-label">Select any card to expand</span>
         </div>
 
-        <Swiper
-          slidesPerView="auto"
-          spaceBetween={20}
-          speed={900}
-          grabCursor
-          onSwiper={(instance) => {
-            swiperRef.current = instance;
-          }}
-          onSlideChange={(instance) => setActive(instance.activeIndex)}
-        >
-          {INSTAGRAM.posts.map((post) => (
-            <SwiperSlide key={post.href} className="instagram-slide">
-              <div>
-                <blockquote className="instagram-quote">&ldquo;{post.caption}&rdquo;</blockquote>
-                <p className="instagram-detail">{post.detail}</p>
-              </div>
-              <p className="instagram-author">
-                <span>{post.tag}</span>
-                <span aria-hidden="true" className="instagram-author-sep">
-                  /
-                </span>
-                <a href={post.href} target="_blank" rel="noreferrer">
-                  View Post
-                </a>
-              </p>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        <div data-fade="">
+          <ExpandableCards cards={igCards} selectedCard={selected} onSelect={setSelected} />
+        </div>
 
-        <div className="instagram-footer" data-fade="">
-          <p className="instagram-contact">
-            <span>📍 Location: {INSTAGRAM.contact.location}</span>
+        <div className="instagram-meta-strip" data-fade="">
+          <div className="instagram-meta-item">
+            <span className="instagram-meta-label">Location</span>
             <a href={INSTAGRAM.contact.mapHref} target="_blank" rel="noreferrer">
-              Google Map
+              {INSTAGRAM.contact.location}
             </a>
-            <span>
-              📞 <a href={INSTAGRAM.contact.phoneHref}>{INSTAGRAM.contact.phone}</a> · ✉{" "}
-              <a href={`mailto:${INSTAGRAM.contact.email}`}>{INSTAGRAM.contact.email}</a> · 🌐{" "}
-              <a href={INSTAGRAM.contact.website}>alfatahbuilders.com</a>
-            </span>
+          </div>
+          <div className="instagram-meta-item">
+            <span className="instagram-meta-label">Booking &amp; Details</span>
+            <a href={INSTAGRAM.contact.phoneHref}>{INSTAGRAM.contact.phone}</a>
+          </div>
+          <div className="instagram-meta-item">
+            <span className="instagram-meta-label">Email</span>
+            <a href={`mailto:${INSTAGRAM.contact.email}`}>{INSTAGRAM.contact.email}</a>
+          </div>
+          <div className="instagram-meta-item">
+            <span className="instagram-meta-label">Social Hub</span>
             <a href={INSTAGRAM.contact.linktree} target="_blank" rel="noreferrer">
-              Follow us: linktr.ee/alfatahgroup
+              linktr.ee/alfatahgroup
             </a>
-          </p>
-          <PillLink text={INSTAGRAM.cta} href={INSTAGRAM.ctaHref} target="_blank" rel="noreferrer" />
+          </div>
         </div>
       </Container>
     </section>

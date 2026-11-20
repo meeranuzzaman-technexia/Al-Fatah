@@ -122,3 +122,43 @@
 .welcome-question > a:hover {
   color: var(--color-accent);
 }
+.welcome-card > img {
+  width: 100%;
+  height: 120%;       /* parallax ke liye extra room */
+  margin-top: -10%;
+  object-fit: cover;
+  will-change: transform;
+}
+/* ---- Caption mask ---- */
+.caption-mask {
+  overflow: hidden;
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+}
+.caption-mask--name { margin-bottom: 0.6rem; }
+
+.welcome-director-name,
+.welcome-director-role { will-change: transform; }
+
+/* ---- Magnetic ---- */
+.magnetic-area {
+  display: inline-flex;
+  padding: 1.6rem;
+  margin: -1.6rem;
+}
+.magnetic-mover {
+  display: inline-flex;
+  will-change: transform;
+}
+.welcome-phone-icon {
+  will-change: transform;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.welcome-phone-block:hover .welcome-phone-icon {
+  background: #151717;
+  color: #fff;
+}
+
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .magnetic-area { padding: 0; margin: 0; }
+}

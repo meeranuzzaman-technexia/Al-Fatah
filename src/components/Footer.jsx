@@ -1,5 +1,6 @@
 import { Logo } from "./Brand.jsx";
-import { FOOTER, MEDIA } from "../data.js";
+import { TiltCard } from "./TiltCard.jsx";
+import { FOOTER } from "../data.js";
 import "../styles/footer.css";
 
 export function Footer({ handleAnchor }) {
@@ -44,8 +45,18 @@ export function Footer({ handleAnchor }) {
         <div className="footer-gallery reveal">
           <h3>{FOOTER.galleryHeading}</h3>
           <div className="footer-gallery-grid">
-            {MEDIA.gallery.map((src) => (
-              <img src={src} alt="" loading="lazy" key={src} />
+            {FOOTER.galleryItems.map((item) => (
+              <TiltCard
+                key={item.title}
+                title={item.title}
+                description={item.description}
+                price={item.price}
+                badgeLabel={item.badgeLabel}
+                badgeVariant={item.badgeVariant}
+                imageSrc={item.imageSrc}
+                imageAlt={item.title}
+                href={item.href}
+              />
             ))}
           </div>
         </div>

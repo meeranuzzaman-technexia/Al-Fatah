@@ -7,13 +7,15 @@
   color: #fff;
 }
 
+/* Note: keep padding-inline from .container intact (only set vertical padding). */
 .footer-inner {
-  padding: var(--section-y) 0 4rem;
+  padding-top: var(--section-y);
+  padding-bottom: 15rem;
 }
 
 .footer-intro {
   max-width: 80rem;
-  margin: 0 0 7.2rem;
+  margin: 0 0 6.4rem;
   font-family: var(--font-sans);
   font-size: var(--text-body);
   font-weight: 400;
@@ -24,13 +26,15 @@
 .footer-contacts {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 4rem;
-  margin-top: 8rem;
+  gap: 4.8rem;
+  margin-top: 6.4rem;
+  padding-top: 5.6rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .footer-contact-label {
   margin-bottom: 1.6rem;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.48);
   font-family: var(--font-sans);
   font-size: var(--text-eyebrow);
   font-weight: 400;
@@ -42,7 +46,8 @@
   font-family: var(--font-sans);
   font-size: var(--text-body);
   font-weight: 400;
-  line-height: 1.65;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.88);
 }
 
 .footer-contact-value a {
@@ -53,10 +58,11 @@
 .footer-phone-list {
   display: flex;
   flex-direction: column;
+  gap: 0.4rem;
 }
 
 .footer-gallery {
-  margin-top: 8rem;
+  margin-top: 7.2rem;
 }
 
 .footer-gallery h3 {
@@ -66,29 +72,205 @@
   font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.48);
 }
 
 .footer-gallery-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 2rem;
+  gap: 2.4rem;
 }
 
-.footer-gallery-grid img {
+/* Interactive 3D TiltCard inside Footer Gallery */
+.tilt-card-link,
+.tilt-card-wrap {
+  display: block;
+}
+
+.tilt-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 23.6rem;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #1b1d1d;
+  color: #fff;
+  transition:
+    box-shadow 0.4s ease,
+    border-color 0.35s ease;
+  will-change: transform;
+}
+
+.tilt-card:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 2.4rem 5rem rgba(0, 0, 0, 0.48);
+}
+
+.tilt-card-head {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding: 2.2rem 2.4rem;
+}
+
+.tilt-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.tilt-card-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: #fff;
+}
+
+.tilt-card-desc {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1.35rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.tilt-badge-split {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  white-space: nowrap;
+  font-family: var(--font-sans);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.tilt-badge-price {
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px 0 0 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.tilt-badge-label {
+  padding: 0.45rem 0.95rem;
+  border-radius: 0 999px 999px 0;
+}
+
+.tilt-badge-label.is-success {
+  background: rgba(16, 185, 129, 0.18);
+  color: #6ee7b7;
+}
+
+.tilt-badge-label.is-warning {
+  background: rgba(245, 158, 11, 0.22);
+  color: #fcd34d;
+}
+
+.tilt-badge-single {
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  font-family: var(--font-sans);
+  font-size: 1.2rem;
+  font-weight: 500;
+  white-space: nowrap;
+  flex: none;
+}
+
+.tilt-card-image {
+  position: absolute;
+  z-index: 10;
+  top: 11.2rem;
+  right: -3.2rem;
+  width: 28.8rem;
+  height: 19rem;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 1.4rem 3.2rem rgba(0, 0, 0, 0.45);
+  transform: rotate(-5deg);
+  transition:
+    top 0.55s cubic-bezier(0.19, 1, 0.22, 1),
+    right 0.55s cubic-bezier(0.19, 1, 0.22, 1),
+    width 0.55s cubic-bezier(0.19, 1, 0.22, 1),
+    height 0.55s cubic-bezier(0.19, 1, 0.22, 1),
+    border-radius 0.55s cubic-bezier(0.19, 1, 0.22, 1),
+    transform 0.55s cubic-bezier(0.19, 1, 0.22, 1);
+  pointer-events: none;
+}
+
+.tilt-card:hover .tilt-card-image {
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  border-color: transparent;
+  transform: rotate(0deg) scale(1.02);
+}
+
+.tilt-card-hover-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  background: linear-gradient(
+    to bottom,
+    rgba(21, 23, 23, 0.72) 0%,
+    rgba(21, 23, 23, 0.28) 55%,
+    rgba(21, 23, 23, 0.12) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+}
+
+.tilt-card:hover .tilt-card-hover-scrim {
+  opacity: 1;
+}
+
+.clipped-circle-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.clipped-circle-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 255, 255, 0.1) 42%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  will-change: transform, left, top;
 }
 
 .footer-nav {
   display: flex;
   justify-content: space-between;
   gap: 8rem;
-  margin-top: 8rem;
+  margin-top: 7.2rem;
   padding-top: 5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .footer-links {
@@ -107,7 +289,7 @@
 
 .footer-socials {
   display: grid;
-  gap: 1.6rem;
+  gap: 1.4rem;
   align-content: start;
   font-size: var(--text-body);
   font-weight: 400;
@@ -115,7 +297,7 @@
 
 .footer-logo {
   width: 100%;
-  margin: 10rem 0 1rem;
+  margin: 8.8rem 0 1rem;
   color: #fff;
 }
 
@@ -130,11 +312,12 @@
 .footer-bottom {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 4rem;
   margin-top: 6rem;
-  padding-top: 3rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.45);
+  padding-top: 3.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 1.4rem;
   font-weight: 400;
 }
@@ -151,8 +334,14 @@
 .legal-links {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 1rem 2.5rem;
+  justify-content: center;
+  gap: 1rem 2.4rem;
+}
+
+@media (max-width: 1080px) {
+  .footer-gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 900px) {
@@ -167,18 +356,29 @@
   }
 
   .footer-logo {
-    margin-top: 7rem;
+    margin-top: 6.4rem;
   }
 }
 
 @media (max-width: 640px) {
+  .footer-inner {
+    padding-bottom: 14rem;
+  }
+
   .footer-intro {
-    margin-bottom: 5.6rem;
+    margin-bottom: 4.8rem;
   }
 
   .footer-contacts,
   .footer-gallery-grid {
     grid-template-columns: 1fr;
+  }
+
+  .tilt-card-image {
+    width: 22rem;
+    height: 14.5rem;
+    top: 12.2rem;
+    right: -2.4rem;
   }
 
   .footer-bottom {

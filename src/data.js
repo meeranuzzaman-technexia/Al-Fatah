@@ -151,6 +151,20 @@ export const PROJECTS = {
   ],
 };
 
+/* 4b. 3D Elevation Showcase (Al Fatah Business Avenue) ---------------------- */
+export const ELEVATION = {
+  eyebrow: "Coming Soon · 3D Elevation",
+  titleLines: ["Al Fatah", "Business Avenue"],
+  intro:
+    "Explore the architectural night elevation of our upcoming flagship commercial and corporate landmark. Move your pointer or use the arrow keys to tilt the facade.",
+  cta: "Book Inquiry",
+  ctaHref: "#contact",
+  image: "/images/elevation.jpeg",
+  alt: "Night render of the Al Fatah Business Avenue tower",
+  hint: "Interactive 3D View — Move cursor or ↑ ↓ ← → keys (Esc to reset)",
+  meta: "Al Fatah Builders & Developers · Karachi",
+};
+
 /* 5. Why Choose Us (rendered by the animated "Steps" section) -------------- */
 /* The source site listed INTEGRITY twice with broken numbering (/1,/3,/2,/3,/4).
    Duplicate removed, numbering corrected — see MAPPING.md. */
@@ -345,6 +359,35 @@ export const FOOTER = {
     { label: "Contact Us", href: "/contact-us/" },
   ],
   galleryHeading: "Gallery",
+  galleryItems: [
+    {
+      title: "Al Fatah Icon",
+      description: "Malir Cantt · 4 Bed + Lounge",
+      price: "PKR 2.17 Cr",
+      badgeLabel: "Ongoing",
+      badgeVariant: "success",
+      imageSrc: MEDIA.gallery[0],
+      href: "/al-fatah-icon/",
+    },
+    {
+      title: "Business Avenue",
+      description: "Karachi · Commercial Landmark",
+      price: "Phase I",
+      badgeLabel: "Coming Soon",
+      badgeVariant: "warning",
+      imageSrc: MEDIA.gallery[1],
+      href: "/al-fatah-business-avenue/",
+    },
+    {
+      title: "Brishna Heights",
+      description: "Gulistan-e-Johar · Residential",
+      price: "SBCA",
+      badgeLabel: "Approved",
+      badgeVariant: "success",
+      imageSrc: MEDIA.gallery[2],
+      href: "/brishna-heights/",
+    },
+  ],
   socials: [
     { label: "Facebook", href: "https://www.facebook.com/AlFatahGroupOfficial/" },
     { label: "LinkedIn", href: "https://www.linkedin.com/company/91136845/" },
