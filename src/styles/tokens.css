@@ -1,7 +1,5 @@
 /* ==========================================================================
-   Design Tokens — Fonts, Colours, Typography Scale, Layout & Spacing
-   Edit values here to adjust fonts, colours, sizes, or section padding
-   consistently across the entire website.
+   Design Tokens — Al-Fatah Brand Palette (Black, Champagne Gold & Crisp White)
    ========================================================================== */
 
 @font-face {
@@ -21,21 +19,24 @@
 }
 
 :root {
-  /* Palette */
-  --ink: #151717;
+  /* Logo Brand Palette (Black + Gold + White) */
+  --ink: #0a0a0a;
   --muted: #b3b3b3;
-  --line: rgba(21, 23, 23, 0.1);
+  --line: rgba(10, 10, 10, 0.12);
   --paper: #ffffff;
-  --soft: #f1f1f1;
-  --blue: #0496ff;
+  --soft: #f5f3ee;
+  --gold: #ddbe76;
+  --gold-bright: #f2e29f;
+  --gold-deep: #b88c32;
+  --blue: #ddbe76;
 
-  --color-text: #151717;
+  --color-text: #0a0a0a;
   --color-bg: #ffffff;
-  --color-alt: #f1f1f1;
-  --color-dark: #151717;
-  --color-dark-line: #383a3a;
-  --color-line: rgba(21, 23, 23, 0.1);
-  --color-accent: #d92424;
+  --color-alt: #f5f3ee;
+  --color-dark: #0a0a0a;
+  --color-dark-line: rgba(221, 190, 118, 0.22);
+  --color-line: rgba(10, 10, 10, 0.12);
+  --color-accent: #b88c32;
 
   /* Fonts */
   --font-heading: "OptimaLTPro Roman", "Optima LT Pro", Optima, Georgia, serif;

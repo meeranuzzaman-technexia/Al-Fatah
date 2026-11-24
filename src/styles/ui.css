@@ -7,9 +7,15 @@
   margin: 0 0 2rem;
   font-family: var(--font-sans);
   font-size: var(--text-eyebrow);
-  font-weight: 400;
-  letter-spacing: 0.12em;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.section-dark .eyebrow,
+.elevation-section .eyebrow {
+  color: var(--gold);
 }
 
 .section-title {
@@ -86,21 +92,27 @@
 
 .pill-button:hover {
   transform: translateY(-0.3rem);
+  box-shadow: 0 10px 24px rgba(10, 10, 10, 0.22);
 }
 
 .pill-button.light {
-  background: #fff;
+  background: var(--gold);
   color: var(--ink);
+}
+
+.pill-button.light:hover {
+  background: var(--gold-bright);
 }
 
 .pill-button.outline {
   background: transparent;
-  color: inherit;
-  border: 1px solid rgba(255, 255, 255, 0.55);
+  color: #fff;
+  border: 1px solid rgba(221, 190, 118, 0.65);
 }
 
 .pill-button.outline:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(221, 190, 118, 0.16);
+  border-color: var(--gold);
 }
 
 .pill-button.outline-dark {

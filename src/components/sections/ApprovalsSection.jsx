@@ -16,16 +16,34 @@ export function ApprovalsSection() {
 
           <div>
             <h3 className="approvals-label">{APPROVALS.memberHeading}</h3>
-            <a className="approvals-badge" href={APPROVALS.memberHref} target="_blank" rel="noreferrer">
-              {APPROVALS.member}
+            <a
+              className="approvals-badge"
+              href={APPROVALS.memberHref}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={APPROVALS.member}
+            >
+              <img
+                src={APPROVALS.memberLogo}
+                alt="ABAD — Association of Builders And Developers of Pakistan"
+                className="approvals-logo"
+                loading="lazy"
+                decoding="async"
+              />
             </a>
             <p className="approvals-note">{APPROVALS.membershipNumber}</p>
 
             <h3 className="approvals-label approvals-label-spaced">{APPROVALS.approvalsHeading}</h3>
             <div className="approvals-badges">
               {APPROVALS.approvals.map((item) => (
-                <div key={item} className="approvals-badge">
-                  {item}
+                <div key={item.label} className="approvals-badge">
+                  <img
+                    src={item.logo}
+                    alt={item.label}
+                    className="approvals-logo approvals-logo--compact"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
               ))}
             </div>

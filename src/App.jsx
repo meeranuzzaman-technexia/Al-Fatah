@@ -4,7 +4,6 @@ import { Hero } from "./components/Hero.jsx";
 import { WelcomeSection } from "./components/sections/WelcomeSection.jsx";
 import { WhyVideoSection } from "./components/sections/WhyVideoSection.jsx";
 import { ProjectsSection } from "./components/sections/ProjectsSection.jsx";
-import { ElevationSection } from "./components/sections/ElevationSection.jsx";
 import { StepsSection } from "./components/sections/StepsSection.jsx";
 import { BlogSection } from "./components/BlogSection.jsx";
 import { InstagramSection } from "./components/sections/InstagramSection.jsx";
@@ -23,25 +22,29 @@ function App() {
   const lenisRef = useRef(null);
   const heroRef = useRef(null);
 
-  // Reverse-sticky header:
-  // - 0..40px: over-hero (logo centred, transparent gradient)
-  // - > 40px: morphs to sticky white bar & logo swipes smoothly to the left
-  // - > 180px: hides on downward scroll, immediately reveals on upward scroll
+  // Black header:
+  // - 0..40px: over-hero (icon centred)
+  // - > 40px: morphs to compact sticky bar & icon swipes smoothly to the left
+  // - > 10% of hero height: hides on downward scroll, reveals on upward scroll
   useEffect(() => {
     let lastY = window.scrollY;
 
     const onScroll = () => {
       const y = Math.max(0, window.scrollY);
       const delta = y - lastY;
+      const heroHeight = heroRef.current ? heroRef.current.offsetHeight : window.innerHeight * 2.8;
+      const hideThreshold = heroHeight * 0.1;
 
       setHeaderSticky(y > 40);
 
-      if (y <= 180) {
+      if (y <= hideThreshold) {
         setHeaderHidden(false);
-      } else if (delta > 3) {
+      } else if (delta > 1) {
         setHeaderHidden(true);
       } else if (delta < -3) {
         setHeaderHidden(false);
+      } else if (delta === 0) {
+        setHeaderHidden(true);
       }
 
       lastY = y;
@@ -64,8 +67,7 @@ function App() {
         <Hero heroRef={heroRef} />
         <WelcomeSection />
         <WhyVideoSection />
-        <ProjectsSection />
-        <ElevationSection />
+        <ProjectsSection goTo={goTo} />
         <StepsSection />
         <BlogSection lenisRef={lenisRef} />
         <InstagramSection />

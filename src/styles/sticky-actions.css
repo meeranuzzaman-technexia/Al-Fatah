@@ -31,6 +31,7 @@
 }
 
 .sticky-call:hover {
-  background: #232626;
-  box-shadow: 0 12px 30px rgba(21, 23, 23, 0.34);
+  background: var(--gold);
+  color: var(--ink);
+  box-shadow: 0 12px 30px rgba(221, 190, 118, 0.36);
 }

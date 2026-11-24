@@ -43,15 +43,21 @@ export function useSmoothScroll(lenisRef, heroRef) {
           .to(".hero-house", { y: -150, scale: 1.07, duration: 1.85 }, 0)
           .to(".hero-cloud.left", { x: -120, y: 34, duration: 1.85 }, 0)
           .to(".hero-cloud.right", { x: 120, y: 40, duration: 1.85 }, 0)
-          // Black outlined wordmark cross-fades in as the headline leaves,
+          // Outlined wordmark enters and fills cleanly with solid white on scroll,
           // then drifts out — no hard cuts.
           .fromTo(
             ".hero-logo-reveal",
             { opacity: 0, scale: 0.9 },
-            { opacity: 1, scale: 1, duration: 0.85 },
-            0.55
+            { opacity: 1, scale: 1, duration: 0.7 },
+            0.45
           )
-          .to(".hero-logo-reveal", { opacity: 0, scale: 1.12, duration: 0.7 }, 1.45);
+          .fromTo(
+            ".hero-logo-fill",
+            { clipPath: "inset(0 100% 0 0)" },
+            { clipPath: "inset(0 0% 0 0)", duration: 0.85 },
+            0.6
+          )
+          .to(".hero-logo-reveal", { opacity: 0, scale: 1.12, duration: 0.65 }, 1.5);
       }
 
       gsap.utils.toArray(".reveal").forEach((element) => {

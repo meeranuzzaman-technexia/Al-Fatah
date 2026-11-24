@@ -27,7 +27,10 @@ export function Hero({ heroRef }) {
           <div className="hero-overlay" />
         </div>
         <div className="hero-logo-reveal" aria-hidden="true">
-          <Logo />
+          <div className="hero-logo-stack">
+            <Logo className="hero-logo-outline" />
+            <Logo className="hero-logo-fill" />
+          </div>
           <span>Builders &amp; Developers</span>
         </div>
         <div className="hero-content">

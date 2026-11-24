@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Logo, ChevronDown } from "./Brand.jsx";
+import { ChevronDown } from "./Brand.jsx";
 import { PillLink } from "./Pill.jsx";
 import { HEADER_CTA, navGroups } from "../data.js";
 import "../styles/header.css";
@@ -76,15 +76,18 @@ export function Header({ goTo, sticky, hidden }) {
             {navGroups.slice(0, 3).map((group) => renderNavItem(group, "left"))}
           </nav>
 
-          {/* Animated center-to-left wordmark */}
+          {/* Animated center-to-left brand logo */}
           <a
             className="brand-link"
             href="#top"
             onClick={(event) => onAnchor(event, "#top")}
             aria-label="Al-Fatah — Builders & Developers home"
           >
-            <Logo className="brand-logo" />
-            <span className="brand-wordmark">Builders &amp; Developers</span>
+            <img
+              src="/images/alfatah-header-logo.png"
+              alt="Al-Fatah Builders & Developers"
+              className="brand-icon"
+            />
           </a>
 
           {/* Sticky centered links (1-6) */}
@@ -99,7 +102,12 @@ export function Header({ goTo, sticky, hidden }) {
             </nav>
 
             <div className="header-actions">
-              <PillLink text={HEADER_CTA.label} href={HEADER_CTA.href} className="header-cta" />
+              <PillLink
+                text={HEADER_CTA.label}
+                href={HEADER_CTA.href}
+                variant="dark"
+                className="header-cta"
+              />
             </div>
           </div>
 
@@ -142,7 +150,12 @@ export function Header({ goTo, sticky, hidden }) {
             </div>
           )
         )}
-        <PillLink text={HEADER_CTA.label} href={HEADER_CTA.href} className="mobile-signin" />
+        <PillLink
+          text={HEADER_CTA.label}
+          href={HEADER_CTA.href}
+          variant="dark"
+          className="mobile-signin"
+        />
       </div>
     </>
   );

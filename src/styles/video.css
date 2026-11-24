@@ -1,10 +1,34 @@
 /* ==========================================================================
-   Video Section — Scroll-driven Clip-Path Expansion
+   Video Section — Scroll-Pinned Expansion to 100% Full-Screen
    ========================================================================== */
+
+.video-section {
+  padding: 0;
+  background: #0a0a0a;
+  overflow: clip;
+}
+
+.video-scroll-track {
+  position: relative;
+  height: 220vh;
+}
+
+.video-pin-frame {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #0a0a0a;
+}
 
 .video-frame {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 100%;
   object-fit: cover;
-  background: #151717;
+  background: #0a0a0a;
+  will-change: transform, clip-path;
 }

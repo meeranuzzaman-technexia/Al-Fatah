@@ -1,65 +1,66 @@
-/* Dedicated Video section with scroll-driven clip-path expansion. */
+/* Dedicated Video section — pins on scroll, expands to 100% full screen, then scrolls to Projects. */
+import { useRef } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { VIDEO } from "../../data.js";
 import { useGsapScope } from "../../hooks/useGsapScope.js";
-import { Container } from "../ported/ui.jsx";
 import "../../styles/video.css";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export function WhyVideoSection() {
+  const trackRef = useRef(null);
+
   const ref = useGsapScope((scope) => {
-    const lines = scope.querySelectorAll("[data-line]");
-    if (lines.length) {
-      gsap.from(lines, {
-        yPercent: 110,
-        duration: 1.2,
-        ease: "power4.out",
-        stagger: 0.1,
-        scrollTrigger: { trigger: scope, start: "top 70%" },
-      });
-    }
-
-    const fades = scope.querySelectorAll("[data-fade]");
-    if (fades.length) {
-      gsap.from(fades, {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-        stagger: 0.12,
-        scrollTrigger: { trigger: scope, start: "top 65%" },
-      });
-    }
-
+    const track = trackRef.current;
     const video = scope.querySelector("[data-video]");
-    if (video) {
-      gsap.fromTo(
+    if (!track || !video) return;
+
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: track,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 0.55,
+          invalidateOnRefresh: true,
+        },
+      })
+      .fromTo(
         video,
-        { clipPath: "inset(14% 14% 14% 14% round 32px)" },
+        {
+          clipPath: "inset(14% 12% 14% 12% round 22px)",
+          scale: 0.94,
+        },
         {
           clipPath: "inset(0% 0% 0% 0% round 0px)",
-          ease: "none",
-          scrollTrigger: { trigger: video, start: "top 95%", end: "top 35%", scrub: true },
+          scale: 1,
+          ease: "sine.inOut",
+          duration: 0.65,
         }
-      );
-    }
+      )
+      // Hold full screen cleanly for a beat before moving to Our Projects
+      .to(video, { scale: 1, duration: 0.35 });
   });
 
   return (
-    <section ref={ref} className="section-video video-section" data-header-theme="light">
-      <Container>
-        <video
-          data-video=""
-          className="video-frame"
-          src={VIDEO.src}
-          poster={VIDEO.poster}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          aria-label="Al-Fatah Builders & Developers — project film"
-        />
-      </Container>
+    <section ref={ref} className="section-video video-section" data-header-theme="dark">
+      <div ref={trackRef} className="video-scroll-track">
+        <div className="video-pin-frame">
+          <video
+            data-video=""
+            className="video-frame"
+            src={VIDEO.src}
+            poster={VIDEO.poster}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-label="Al-Fatah Builders & Developers — project film"
+          />
+        </div>
+      </div>
     </section>
   );
 }

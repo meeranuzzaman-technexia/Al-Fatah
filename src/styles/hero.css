@@ -95,7 +95,7 @@
   pointer-events: none;
 }
 
-/* Outlined Al-Fatah reveal */
+/* Outlined -> White-filled Al-Fatah reveal on scroll */
 .hero-logo-reveal {
   position: absolute;
   top: 50%;
@@ -107,24 +107,44 @@
   pointer-events: none;
 }
 
+.hero-logo-stack {
+  position: relative;
+  width: 100%;
+}
+
 .hero-logo-reveal svg {
   width: 100%;
   height: auto;
+  display: block;
   overflow: visible;
 }
 
-.hero-logo-reveal svg path,
-.hero-logo-reveal svg text {
-  fill: transparent;
-  stroke: #151717;
+.hero-logo-outline path,
+.hero-logo-outline text {
+  fill: rgba(255, 255, 255, 0.08);
+  stroke: rgba(255, 255, 255, 0.72);
   stroke-width: 1.7px;
+}
+
+.hero-logo-fill {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 100% 0 0);
+  will-change: clip-path;
+}
+
+.hero-logo-fill path,
+.hero-logo-fill text {
+  fill: #ffffff;
+  stroke: #ffffff;
+  stroke-width: 1px;
 }
 
 .hero-logo-reveal span {
   display: block;
-  margin-top: 1rem;
-  color: #151717;
-  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.9);
+  margin-top: 1.2rem;
+  color: #ffffff;
+  text-shadow: 0 2px 18px rgba(10, 10, 10, 0.55);
   text-align: center;
   font-size: clamp(1.4rem, 2.2vw, 2.8rem);
   font-weight: 700;
