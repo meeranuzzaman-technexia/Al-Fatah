@@ -9,7 +9,6 @@ import { BlogSection } from "./components/BlogSection.jsx";
 import { InstagramSection } from "./components/sections/InstagramSection.jsx";
 import { ApprovalsSection } from "./components/sections/ApprovalsSection.jsx";
 import { ContactSection } from "./components/sections/ContactSection.jsx";
-import { FinalCTASection } from "./components/FinalCTASection.jsx";
 import { Footer } from "./components/Footer.jsx";
 import { StickyActions } from "./components/StickyActions.jsx";
 import { useSmoothScroll } from "./hooks/useSmoothScroll.js";
@@ -73,7 +72,6 @@ function App() {
         <InstagramSection />
         <ApprovalsSection />
         <ContactSection />
-        <FinalCTASection />
       </main>
 
       <Footer handleAnchor={handleAnchor} />

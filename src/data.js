@@ -22,29 +22,32 @@ export const MEDIA = {
   hero: "/images/back.f53e9773.webp",
   director: "/images/Ahmed Mazhar.webp",
   project: [
-    "/images/1.52131ac7.webp",
-    "/images/2.58bf2fb8.webp",
-    "/images/3.483e04ae.webp",
-    "/images/4.ea5fa732.webp",
+    "/images/icon.jpg",
+    "/images/building.jpg",
+    "/images/pride.jpg",
+    "/images/arcade.jpg",
     "/images/building cut.png",
   ],
   news: [
-    "/images/2.41633fa6.webp",
-    "/images/1.e7a1ff18.webp",
-    "/images/1.f6e8f2e8.webp",
-    "/images/2.58bf2fb8.webp",
-    "/images/3.483e04ae.webp",
-    "/images/4.ea5fa732.webp",
+    "/images/news/apartments-with-elevators-in-karachi.webp",
+    "/images/news/al-fatah-company-journey.webp",
+    "/images/news/property-development-engineering.webp",
+    "/images/news/apartments-with-rooftop-garden.webp",
+    "/images/news/al-fatah-builders-goals.webp",
+    "/images/news/brishna-heights-booking.webp",
   ],
-  gallery: ["/images/house.webp", "/images/bg.ec610793.webp", "/images/development.0de63e1b.webp"],
+  instagram: [
+    "/images/A complete lifestyle, now at an exceptional value.From a private gym and kids play area to pea.webp",
+    "/images/A complete lifestyle, now at an exceptional value.From a private gym and kids play area to pea.webp",
+    "/images/A complete lifestyle, now at an exceptional value.From a private gym and kids play area to pea.webp",
+  ],
+  gallery: ["/images/icon.jpg", "/images/elevation.jpeg", "/images/brishna-heights-booking.webp"],
   finalCta: "/images/2.41633fa6.webp",
 };
 
 /* Fallback video of the Al-Fatah-new variant — replace later. */
 export const VIDEO = {
-  src: "https://videos.pexels.com/video-files/8293021/8293021-hd_1920_1080_30fps.mp4",
-  poster:
-    "https://images.pexels.com/videos/8293021/pexels-photo-8293021.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=630&w=1200",
+  src: "https://res.cloudinary.com/naifkddh/video/upload/v1795517038/Business_Avenue_by_Al_Fatah_Builders_and_Developers___TEASER.mp4",
 };
 
 /* 1. Header / navigation --------------------------------------------------- */
@@ -299,6 +302,7 @@ export const INSTAGRAM = {
         "From a private gym and kids' play area to peaceful rooftop spaces, a prayer area, and dedicated basement parking, Al Fatah Icon brings everything you need under one address. Originally priced at PKR 2.41 Crore, now available from just PKR 2.17 Crore.",
       tag: "Al Fatah Icon",
       href: "https://www.instagram.com/p/DdHR3_KCt8h/",
+      image: MEDIA.instagram[0],
     },
     {
       caption: "Premium living is all about having more within your space.",
@@ -306,6 +310,8 @@ export const INSTAGRAM = {
         "Own a spacious 4 Bed + Lounge | 1,740 Sq. Ft. apartment at Al Fatah Icon for PKR 2.17 Crore, previously priced at PKR 2.41 Crore.",
       tag: "Al Fatah Icon",
       href: "https://www.instagram.com/reel/DdA2krLhEHK/",
+      image:
+        "https://res.cloudinary.com/naifkddh/video/upload/so_1,w_900,c_fill,ar_4:5,q_auto,f_jpg/v1795522034/Premium_living_is_all_about_having_more_within_your_space._From_a_rooftop_oasis_and_kids_play.jpg",
     },
     {
       caption: "A home is more than just the space you live in, it's the lifestyle that comes with it.",
@@ -313,6 +319,8 @@ export const INSTAGRAM = {
         "Al Fatah Icon brings together everything you need for comfortable modern living. Discover a lifestyle designed around convenience, comfort, and community. Al Fatah Icon, A Complete Lifestyle.",
       tag: "Al Fatah Icon",
       href: "https://www.instagram.com/reel/Dc6P9foApko/",
+      image:
+        "https://res.cloudinary.com/naifkddh/video/upload/so_1,w_900,c_fill,ar_4:5,q_auto,f_jpg/v1795522034/A_home_is_more_than_just_the_space_you_live_in_it_s_the_lifestyle_that_comes_with_it.Al_Fatah_I.jpg",
     },
   ],
   contact: {

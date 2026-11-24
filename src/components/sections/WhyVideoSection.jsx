@@ -51,13 +51,12 @@ export function WhyVideoSection() {
             data-video=""
             className="video-frame"
             src={VIDEO.src}
-            poster={VIDEO.poster}
             autoPlay
             muted
             loop
             playsInline
             preload="auto"
-            aria-label="Al-Fatah Builders & Developers — project film"
+            aria-label="Al-Fatah Builders & Developers — Business Avenue teaser"
           />
         </div>
       </div>

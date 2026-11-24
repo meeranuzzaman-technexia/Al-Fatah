@@ -24,7 +24,9 @@ const igCards = INSTAGRAM.posts.map((post, index) => ({
   id: index + 1,
   title: post.caption,
   content: post.detail,
-  image: MEDIA.project[index % MEDIA.project.length],
+  // CHANGED: use the Instagram-specific image. Falls back to MEDIA.instagram
+  // by index if a post has no `image` field, so the card never renders empty.
+  image: post.image ?? MEDIA.instagram[index % MEDIA.instagram.length],
   href: post.href,
   isReel: post.href.includes("/reel/"),
   author: {

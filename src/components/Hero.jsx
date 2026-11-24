@@ -12,7 +12,7 @@ export function Hero({ heroRef }) {
             <img src="/images/back.f53e9773.webp" alt="" />
           </div>
           <div className="hero-house">
-            <img src="/images/Brishna Heights   .png" alt="" />
+            <img src="/images/luxury-mixed-use-building-cutout.png" alt="" />
           </div>
           <div className="hero-clouds">
             <div className="hero-cloud left">
