@@ -1,0 +1,120 @@
+/* ==========================================================================
+   Media quality pass
+   Single source of truth for how photos are loaded and rendered. Keeps the
+   art direction (cover / contain, focal point) consistent across sections and
+   makes lazy-loading + decoding behaviour explicit for every large photo.
+   ========================================================================== */
+
+/* ---- Global ------------------------------------------------------------
+   NO global `img` background: the hero cutout, the cloud PNGs and the header
+   logo are all transparent PNGs, and a background colour on <img> paints a
+   hard opaque rectangle behind them (it broke the hero). Placeholder colours
+   are declared per-component on the containers that actually need one.
+   ------------------------------------------------------------------------- */
+img {
+  image-rendering: auto;
+}
+
+/* Below-the-fold photos: let the browser defer them and decode off-thread. */
+.projects-section .project-panel-bg,
+.instagram-section .exp-card-media img,
+.news-section .tm-news-media img,
+.photo-deferred {
+  content-visibility: auto;
+  decoding: async;
+}
+
+/* ---- 1. Hero -------------------------------------------------------------
+   Backdrop: warm sky plate, cover-cropped, gently desaturated so the headline
+   keeps its contrast. Priority-loaded (LCP element).
+   Cutout building: contain + subtle contrast lift so the glazing reads.
+   ------------------------------------------------------------------------- */
+.hero-scroll .hero-back img {
+  object-fit: cover;
+  object-position: center 42%;
+  filter: saturate(0.96) contrast(1.02);
+}
+
+.hero-scroll .hero-house img {
+  object-fit: contain;
+  object-position: center bottom;
+  /* soft ground shadow so the cutout doesn't look pasted on the sky */
+  filter: contrast(1.06) saturate(1.08) drop-shadow(0 2rem 4rem rgba(10, 10, 10, 0.16));
+}
+
+/* ---- 2. Projects showcase ------------------------------------------------
+   Full-bleed 100vh panels: always cover, focal point slightly above centre so
+   the tower tops and signage stay in frame on tall screens.
+   ------------------------------------------------------------------------- */
+.projects-section .project-panel-bg {
+  object-fit: cover;
+  object-position: center 38%;
+  filter: saturate(1.02) contrast(1.03);
+  background-color: #0a0a0a;
+}
+
+/* ---- 3. Director portrait (Welcome) -------------------------------------
+   4:5 card, parallax headroom of 120% — keep the face anchored in the upper
+   third so the name/role caption never covers it.
+   ------------------------------------------------------------------------- */
+.welcome-section .welcome-card > img {
+  object-fit: cover;
+  object-position: center 22%;
+  filter: saturate(1.02) contrast(1.02);
+}
+
+/* ---- 4. News feed card media -------------------------------------------- */
+.news-section .tm-news-media img {
+  object-fit: cover;
+  object-position: center 45%;
+}
+
+/* ---- 5. Instagram / quotes cards ---------------------------------------- */
+.instagram-section .exp-card-media img {
+  object-fit: cover;
+  object-position: center 35%;
+}
+
+/* ---- 6. Contact backdrop ------------------------------------------------- */
+.contact-section .contact-backdrop img {
+  object-position: center 48%;
+  filter: saturate(0.82) contrast(1.02);
+}
+
+/* ---- Responsive focal points -------------------------------------------
+   Narrow viewports crop much harder: re-anchor so the subject stays visible.
+   ------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .projects-section .project-panel-bg {
+    object-position: center 30%;
+  }
+
+  .hero-scroll .hero-house img {
+    object-position: center bottom;
+  }
+}
+
+@media (max-width: 640px) {
+  .projects-section .project-panel-bg {
+    object-position: center 26%;
+  }
+
+  .welcome-section .welcome-card > img {
+    object-position: center 16%;
+  }
+
+  .instagram-section .exp-card-media img {
+    object-position: center 30%;
+  }
+}
+
+/* ---- Transparent art: never paint anything behind these ----------------- */
+.hero-back img,
+.hero-house img,
+.hero-cloud img,
+.hero-smoke,
+.brand-icon,
+.footer-logo svg,
+.apv-logo img {
+  background: none !important;
+}

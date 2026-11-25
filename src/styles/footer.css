@@ -25,9 +25,10 @@
 
 .footer-contacts {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 4.8rem;
-  margin-top: 6.4rem;
+  grid-template-columns: repeat(var(--footer-cols), minmax(0, 1fr));
+  align-items: start;
+  gap: 4rem var(--footer-col-gap);
+  margin-top: 0;
   padding-top: 5.6rem;
   border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
@@ -265,9 +266,13 @@
 }
 
 .footer-nav {
-  display: flex;
+  display: grid;
+  /* links column + socials column, aligned to the same outer edges as the
+     contact columns above so the whole footer reads on one grid */
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
   justify-content: space-between;
-  gap: 8rem;
+  gap: 4rem 8rem;
   margin-top: 7.2rem;
   padding-top: 5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.14);
@@ -276,7 +281,10 @@
 .footer-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem 5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem 4rem;
+  min-height: 100%;
 }
 
 .footer-links a {
@@ -289,10 +297,13 @@
 
 .footer-socials {
   display: grid;
+  justify-items: end;
   gap: 1.4rem;
   align-content: start;
+  min-width: 12rem;
   font-size: var(--text-body);
   font-weight: 400;
+  text-align: right;
 }
 
 .footer-logo {
@@ -348,12 +359,22 @@
 @media (max-width: 900px) {
   .footer-contacts {
     grid-template-columns: 1fr 1fr;
+    gap: 4rem 3.2rem;
   }
 
   .footer-nav {
-    display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 4rem;
+  }
+
+  .footer-links {
+    justify-content: flex-start;
+    gap: 1.6rem 3.2rem;
+  }
+
+  .footer-socials {
+    justify-items: start;
+    text-align: left;
   }
 
   .footer-logo {
@@ -383,10 +404,597 @@
   }
 
   .footer-bottom {
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .legal-links {
     justify-content: flex-start;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Seam fix — intro paragraph is commented out in Footer.jsx, so the gap above
+   the contact columns is now pure dead space. Kill the footer top padding and
+   the contacts' top margin so the footer starts flush against the Contact
+   section. (Its own 5.6rem padding-top keeps the column labels breathing.)
+   -------------------------------------------------------------------------- */
+.footer-inner {
+  padding-top: 0;
+}
+
+.footer-contacts {
+  margin-top: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Footer alignment pass
+   One shared column system for both the contact row and the bottom nav row,
+   so the three contact columns and the links/socials line up on the same
+   outer edges. Everything is centred vertically within its row.
+   -------------------------------------------------------------------------- */
+.footer {
+  --footer-cols: 3;
+  --footer-col-gap: 4.8rem;
+}
+
+.footer-contacts > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-width: 0;
+}
+
+.footer-contact-value {
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+}
+
+/* three exactly equal columns — predictable start positions for all three
+   blocks, and the centred Phone Number column sits dead-centre of the page */
+.footer-contacts {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4rem 4.8rem;
+}
+
+.footer-nav {
+  align-items: center;
+}
+
+.footer-links a,
+.footer-socials a {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.15;
+}
+
+@media (max-width: 1024px) {
+  .footer {
+    --footer-col-gap: 3.2rem;
+  }
+  .footer-contacts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .footer-contacts > div:last-child {
+    grid-column: 1 / -1;
+    max-width: 46rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .footer-contacts {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3.6rem;
+  }
+  .footer-contacts > div:last-child {
+    max-width: none;
+  }
+}
+
+/* Phone Number column — centred, as requested (address left, booking right). */
+@media (min-width: 721px) {
+  .footer-contacts > div:nth-child(2) {
+    align-items: center;
+    text-align: center;
+  }
+  .footer-contacts > div:nth-child(2) .footer-contact-label,
+  .footer-contacts > div:nth-child(2) .footer-contact-value {
+    text-align: center;
+  }
+  .footer-contacts > div:nth-child(2) .footer-phone-list {
+    align-items: center;
+  }
+}
+
+/* Bottom legal row: keep the three cells on one baseline grid */
+.footer-credit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  line-height: 1.5;
+}
+
+.footer-credit a {
+  color: inherit;
+}
+
+.footer-bottom > div:nth-child(2) {
+  flex: 1 1 auto;
+}
+
+/* ==========================================================================
+   Footer — social icon row + no underlines
+   ========================================================================== */
+
+/* No underlines anywhere in the footer; links are identified by colour/hover. */
+.footer a,
+.footer a:hover,
+.footer-contact-value a,
+.footer-bottom a {
+  text-decoration: none;
+}
+
+.footer-contact-value a:hover,
+.footer-bottom a:hover {
+  color: var(--gold);
+}
+
+/* Gold-gradient circular social icons, sitting under the wordmark caption. */
+.footer-social-icons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+  margin-top: 3.2rem;
+}
+
+.footer-social-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  color: #ffffff;
+  /* translucent gold glass — the page shows through, glyphs stay white */
+  background: linear-gradient(
+    140deg,
+    rgba(242, 226, 159, 0.32) 0%,
+    rgba(184, 140, 50, 0.26) 52%,
+    rgba(242, 226, 159, 0.14) 100%
+  );
+  border: 1px solid rgba(242, 226, 159, 0.45);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
+  backdrop-filter: blur(6px) saturate(120%);
+  box-shadow:
+    0 0.6rem 1.8rem rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    filter 0.35s ease;
+}
+
+.footer-social-icon svg {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+.footer-social-icon:hover,
+.footer-social-icon:focus-visible {
+  transform: translateY(-0.3rem) scale(1.05);
+  background: linear-gradient(
+    140deg,
+    rgba(242, 226, 159, 0.5) 0%,
+    rgba(184, 140, 50, 0.42) 52%,
+    rgba(242, 226, 159, 0.24) 100%
+  );
+  border-color: rgba(242, 226, 159, 0.8);
+  box-shadow:
+    0 1.2rem 2.6rem rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+}
+
+.footer-social-icon:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .footer-social-icons {
+    gap: 1.1rem;
+    margin-top: 2.4rem;
+  }
+
+  .footer-social-icon {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+/* The old text-link social stack and the extra-links row are no longer
+   rendered — these keep a stray selector from reserving space. */
+.footer-nav,
+.footer-links,
+.footer-socials {
+  display: none;
+}
+
+/* ==========================================================================
+   Footer — final alignment pass
+   • footer spans the full viewport width (no container gutter squeezing)
+   • bottom legal row is one baseline-aligned line with no awkward wrapping
+   • social icons are white marks on a gold-gradient circle
+   ========================================================================== */
+
+/* ---- Full-bleed footer ---------------------------------------------------
+   The inner wrapper keeps the content aligned to the page gutter, but the
+   contact grid now uses the full width so the three columns never squeeze
+   their text into a second line.
+   ------------------------------------------------------------------------- */
+.footer {
+  width: 100%;
+  padding-bottom: 0;
+}
+
+.footer .footer-inner {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: clamp(2rem, 3vw, 4.8rem);
+}
+
+.footer .footer-bottom {
+  width: 100%;
+  max-width: none;
+}
+
+/* ---- Bottom row ---------------------------------------------------------
+   Copyright left · legal links centred · credit right, all on ONE line.
+   Flex (not grid) so nothing can overflow into its neighbour when the legal
+   list gets long — the row only wraps below 1180px.
+   ------------------------------------------------------------------------- */
+.footer .footer-bottom {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.4rem;
+  margin-top: 5.6rem;
+  /* right padding reserves the lane of the floating WhatsApp / Call pills so
+     they never sit on top of "technexia."; bottom padding stays tight */
+  padding: 3.2rem 7rem 2.8rem 0;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 1.3rem;
+  line-height: 1.4;
+}
+
+.footer .footer-copyright {
+  flex: 0 0 auto;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.footer .legal-links {
+  flex: 0 1 auto;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0 1.4rem;
+  min-width: 0;
+}
+
+.footer .legal-links a {
+  white-space: nowrap;
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.55);
+  transition: color 0.25s ease;
+}
+
+.footer .legal-links a:hover {
+  color: var(--gold);
+}
+
+.footer .footer-credit-line {
+  flex: 0 0 auto;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ---- "View on Google Maps" gets a trailing arrow icon ------------------- */
+.footer .footer-map-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  white-space: nowrap;
+}
+
+.footer .footer-map-link svg {
+  flex: none;
+  transition: transform 0.25s ease;
+}
+
+.footer .footer-map-link:hover {
+  color: var(--gold);
+}
+
+.footer .footer-map-link:hover svg {
+  transform: translate(2px, -2px);
+}
+
+/* ---- Social icons: white marks on a gold-gradient circle ---------------- */
+.footer .footer-social-icon {
+  color: #ffffff;
+}
+
+.footer .footer-social-icon svg {
+  stroke: #ffffff;
+  stroke-width: 1.7;
+  fill: currentColor;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
+}
+
+/* Instagram's glyph is drawn with strokes only — keep it white as well */
+/* Font Awesome glyphs are solid single-path marks, so every brand — YouTube
+   included — must be filled with the icon colour. No knocked-out shapes. */
+.footer .footer-social-icon svg,
+.footer .footer-social-icon svg path {
+  fill: #ffffff;
+  stroke: none;
+}
+
+.footer .footer-social-icon:hover svg,
+.footer .footer-social-icon:hover svg path,
+.footer .footer-social-icon:focus-visible svg,
+.footer .footer-social-icon:focus-visible svg path {
+  fill: #ffffff;
+}
+
+.footer .footer-social-icon:hover,
+.footer .footer-social-icon:focus-visible {
+  color: #ffffff;
+}
+
+/* ---- Responsive --------------------------------------------------------- */
+@media (max-width: 1180px) {
+  .footer .footer-bottom {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 1.4rem 2.4rem;
+  }
+
+  .footer .legal-links {
+    order: 3;
+    flex: 1 0 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.8rem;
+  }
+}
+
+/* Mobile: the legal block becomes a readable VERTICAL LIST — one item per
+   line, centred, full wording, no shrinking and no horizontal scrolling. */
+@media (max-width: 720px) {
+  .footer .footer-bottom {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1rem;
+    /* bottom padding clears the fixed WhatsApp bubble */
+    padding: 2.6rem 0 8rem;
+    overflow: visible;
+    font-size: 1.25rem;
+    line-height: 1.45;
+    text-align: left;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  /* full wording, no truncation */
+  .footer .copyright-full {
+    display: inline;
+  }
+
+  .footer .copyright-compact {
+    display: none;
+  }
+
+  .footer .footer-copyright {
+    flex: 0 0 auto;
+    order: 0;
+    white-space: normal;
+    font-size: 1.25rem;
+    line-height: 1.45;
+    letter-spacing: 0;
+    text-align: left;
+  }
+
+  /* every legal link is visible again and simply wraps onto new lines */
+  .footer .legal-links {
+    flex: 0 0 auto;
+    order: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.6rem;
+    width: 100%;
+    max-width: none;
+    text-align: left;
+    font-size: 1.25rem;
+    line-height: 1.45;
+  }
+
+  .footer .legal-links a {
+    display: inline;
+    font-size: 1.25rem;
+    white-space: normal;
+  }
+
+  .footer .footer-credit-line {
+    flex: 0 0 auto;
+    order: 0;
+    white-space: normal;
+    font-size: 1.25rem;
+    line-height: 1.45;
+    text-align: left;
+  }
+
+  /* no bullet separators in a stacked list */
+  .footer .footer-credit-line::before,
+  .footer .legal-links::before {
+    content: none;
+  }
+
+  .footer .credit-created {
+    display: inline;
+  }
+}
+
+/* ---- NexaBlack: self-hosted -------------------------------------------
+   The webfontfree loader script (c.js?f=NexaBlack) blocks the font file with
+   a CORS error when the site is served from its own origin, so the same
+   NexaBlack faces are served locally from /public/fonts instead.
+   ---------------------------------------------------------------------- */
+@font-face {
+  font-family: "NexaBlack";
+  src:
+    url("/fonts/NexaBlack.woff2") format("woff2"),
+    url("/fonts/NexaBlack.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* The compact copyright wording only exists on phones — scope the hide rule
+   to desktop widths so it can never override the mobile override by order. */
+@media (min-width: 721px) {
+  .footer .copyright-compact {
+    display: none;
+  }
+}
+
+/* ---- "technexia." in NexaBlack ----------------------------------------
+   Only this one word uses the NexaBlack display face.
+   ---------------------------------------------------------------------- */
+.footer .footer-credit-line .footer-technexia,
+.footer a.footer-technexia {
+  font-family: "NexaBlack", "Nexa Black", var(--font-sans);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.01em;
+  color: var(--gold);
+  transition: color 0.25s ease;
+}
+
+.footer a.footer-technexia:hover {
+  color: var(--gold-bright);
+}
+
+/* ==========================================================================
+   MOBILE FOOTER — hard left alignment (final override)
+   These rules sit last in the file and use high specificity, so no earlier
+   desktop rule can pull the mobile legal block back to the centre.
+   ========================================================================== */
+@media (max-width: 720px) {
+  .footer .footer-bottom,
+  .footer .footer-bottom .footer-copyright,
+  .footer .footer-bottom .legal-links,
+  .footer .footer-bottom .legal-links a,
+  .footer .footer-bottom .footer-credit-line {
+    text-align: left !important;
+  }
+
+  .footer .footer-bottom,
+  .footer .footer-bottom .legal-links {
+    flex-direction: column;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+  }
+
+  .footer .footer-bottom .legal-links,
+  .footer .footer-bottom .legal-links a,
+  .footer .footer-bottom .footer-copyright,
+  .footer .footer-bottom .footer-credit-line {
+    margin-inline: 0 !important;
+    justify-self: start;
+    width: auto;
+    max-width: 100%;
+  }
+
+  .footer .footer-bottom .legal-links {
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   Footer — social icons without borders + larger bottom row type
+   ========================================================================== */
+.footer .footer-social-icon {
+  border: none !important;
+  /* keep the glass fill but drop the ring */
+  box-shadow:
+    0 0.6rem 1.8rem rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.footer .footer-social-icon:hover,
+.footer .footer-social-icon:focus-visible {
+  border: none !important;
+  box-shadow:
+    0 1.2rem 2.6rem rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Font Awesome solid marks sit a touch larger than the old outline glyphs */
+.footer .footer-social-icon svg {
+  width: 2rem;
+  height: 2rem;
+  stroke: none;
+  fill: currentColor;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+/* Bottom row: bigger, readable type (the legal links are gone, so there is
+   plenty of room for a comfortable size). */
+.footer .footer-bottom {
+  font-size: 1.35rem;
+  line-height: 1.5;
+}
+
+.footer .footer-copyright,
+.footer .footer-credit-line {
+  font-size: 1.35rem;
+  line-height: 1.5;
+}
+
+.footer .footer-technexia {
+  font-size: 1.35rem;
+}
+
+@media (max-width: 720px) {
+  /* stacked list centred-left, comfortably readable */
+  .footer .footer-bottom,
+  .footer .footer-copyright,
+  .footer .footer-credit-line,
+  .footer .footer-technexia {
+    font-size: 1.25rem;
+    line-height: 1.55;
+  }
+
+  .footer .footer-bottom {
+    padding-bottom: 7rem;
   }
 }

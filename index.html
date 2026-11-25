@@ -9,6 +9,18 @@
     />
     <meta name="theme-color" content="#151717" />
     <title>Home - AlFatah Builders &amp; Developers</title>
+      <!-- NexaBlack (self-hosted, used only for the "technexia." credit).
+         The webfontfree loader (c.js?f=NexaBlack) points at c.webfontfree.com
+         WITHOUT an Access-Control-Allow-Origin header, so the browser blocks
+         the font file on any site served from its own origin. The same
+         NexaBlack woff2/woff are shipped in /public/fonts instead. -->
+    <link
+      rel="preload"
+      href="/fonts/NexaBlack.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
   </head>
   <body>
     <div id="root"></div>

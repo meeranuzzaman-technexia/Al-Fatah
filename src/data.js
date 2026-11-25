@@ -445,8 +445,8 @@ export const FOOTER = {
   bookingAddress:
     "Plot Sb 5 & 8, Rehman Town, Sector 44, Scheme 33 University Road, Near Malir Cantt Gate No 5, Karachi.",
   bookingMapHref: "https://www.google.com/maps/search/?api=1&query=24.9510035,67.1411539",
-  copyright: "© Copyrights 2026 – Al Fatah Builders & Developers | Created by technexia.",
-  creditLabel: "technexia.",
+  copyright: "Created by technexia.",
+  creditLabel: "Created by technexia.",
   creditHref: "https://technexia.com/",
   legal: [
     { label: "Terms", href: "#terms" },

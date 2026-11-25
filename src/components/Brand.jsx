@@ -2,11 +2,17 @@
    Still an SVG so every existing .brand-logo / .footer-logo rule keeps working.
    Tight viewBox = no empty space around the word, so the logo reads clearly
    even at header size. */
-export function Logo(props) {
+export function Logo({ tight = false, ...props }) {
+  /* The glyph run of "Al-Fatah" measures ≈318 × 97 units at this font size,
+     while the old viewBox was 350 × 96 — 32 units of dead space on the right
+     pushed the wordmark visually off-centre. `tight` shrinks the viewBox to the
+     real ink bounds so the text is optically centred. */
+  const viewBox = tight ? "0 3.86 318.34 97.22" : "0 0 350 96";
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 350 96"
+      viewBox={viewBox}
       fill="none"
       aria-label="Al-Fatah — Builders & Developers"
       role="img"

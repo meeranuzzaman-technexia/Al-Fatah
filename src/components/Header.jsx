@@ -36,7 +36,12 @@ export function Header({ goTo, sticky, hidden }) {
         <div className="nav-dropdown-group" key={section.group}>
           <span className="nav-dropdown-title">{section.group}</span>
           {section.links.map((link) => (
-            <a key={link.label} href={link.href}>
+            <a
+              key={link.label}
+              href="#projects"
+              data-path={link.href}
+              onClick={(event) => onAnchor(event, "#projects")}
+            >
               {link.label}
             </a>
           ))}
@@ -140,7 +145,12 @@ export function Header({ goTo, sticky, hidden }) {
                   <div className="mobile-submenu-group" key={section.group}>
                     <span>{section.group}</span>
                     {section.links.map((link) => (
-                      <a key={link.label} href={link.href} onClick={closeMenu}>
+                      <a
+                        key={link.label}
+                        href="#projects"
+                        data-path={link.href}
+                        onClick={(event) => onAnchor(event, "#projects")}
+                      >
                         {link.label}
                       </a>
                     ))}

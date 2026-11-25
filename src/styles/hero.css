@@ -33,7 +33,9 @@
 
 .hero-house {
   position: absolute;
-  top: 34vh;
+  /* pushed down so the headline and the two-line intro sit on clean sky
+     instead of being crossed by the tower's rooftop */
+  top: 51vh;
   left: 0;
   right: 0;
   height: 116rem;
@@ -227,7 +229,7 @@
   }
 
   .hero-house {
-    top: 38vh;
+    top: 50vh;
     height: 100rem;
   }
 
@@ -256,7 +258,7 @@
   }
 
   .hero-house {
-    top: 40vh;
+    top: 50vh;
     height: 78rem;
   }
 
