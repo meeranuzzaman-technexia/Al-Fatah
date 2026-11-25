@@ -36,12 +36,12 @@ export function StickyActions() {
         icon={<WhatsAppIcon />}
         className="sticky-pill sticky-whatsapp"
       />
-      <PillLink
+      {/* <PillLink
         text={STICKY.callLabel}
         href={STICKY.callHref}
         icon={<PhoneIcon />}
         className="sticky-pill sticky-call"
-      />
+      /> */}
     </div>
   );
 }

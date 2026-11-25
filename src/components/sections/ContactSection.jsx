@@ -20,11 +20,13 @@ export function ContactSection() {
       <Container>
         <div className="contact-combined-grid">
           <div className="contact-pitch">
-            <p className="contact-offer-label">A COMPLETE LIFESTYLE</p>
+            {/* <p className="contact-offer-label">A COMPLETE LIFESTYLE</p> */}
             <h2>{FINAL_CTA.title}<br /><em>{FINAL_CTA.titleEm}</em></h2>
             <p className="contact-offer-copy">{FINAL_CTA.sub}</p>
             <a className="contact-call-link" href={FINAL_CTA.ctaHref}><Phone size={17} strokeWidth={1.7} /> {FINAL_CTA.cta} <ArrowRight size={17} /></a>
-            <div className="contact-side-note"><span>01</span><span>Have a question? Leave your details<br />and our team will get back to you.</span></div>
+            <div className="contact-side-note">
+              {/* <span>01</span> */}
+              <span>Have a question? Leave your details<br />and our team will get back to you.</span></div>
           </div>
 
           <div className="contact-form-card">
@@ -42,7 +44,7 @@ export function ContactSection() {
         </div>
       </Container>
     </section>
-    <section className="contact-gallery-section">
+    {/* <section className="contact-gallery-section">
       <Container>
         <div className="footer-gallery">
           <h3>{FOOTER.galleryHeading}</h3>
@@ -63,7 +65,7 @@ export function ContactSection() {
           </div>
         </div>
       </Container>
-    </section>
+    </section> */}
     </>
   );
 }
