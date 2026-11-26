@@ -40,6 +40,59 @@ function SocialIcon({ label }) {
   );
 }
 
+
+/* ---- small line icons (inline SVG — no external icon font) ---------------- */
+const ICONS = {
+  /* fa-solid fa-phone */
+  phone:
+    "M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z",
+  /* fa-solid fa-envelope */
+  mail:
+    "M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z",
+  /* fa-sharp fa-solid fa-location-dot */
+  map:
+    "M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z",
+};
+
+/* A landline / rotary desk phone (the silhouette of fa-phone-rotary, which is
+   a Pro glyph — this is a hand-built stand-in with the same read). */
+function RotaryIcon() {
+  /* Desk / rotary phone: handset above, tapered base below, dial punched out.
+     Built from plain shapes so it still reads at 14px next to the text. */
+  return (
+    <svg viewBox="0 0 512 512" className="footer-rotary" aria-hidden="true" focusable="false">
+      {/* handset */}
+      <rect x="58" y="54" width="396" height="66" rx="33" />
+      <circle cx="92" cy="88" r="46" />
+      <circle cx="420" cy="88" r="46" />
+      {/* tapered base with the dial punched out (evenodd) */}
+      <path
+        fillRule="evenodd"
+        d="M186 196h140c16 0 30 7 40 19l62 78c11 14 17 32 17 50v72c0 27-22 49-49 49H116c-27 0-49-22-49-49v-72c0-18 6-36 17-50l62-78c10-12 24-19 40-19Zm70 110a56 56 0 1 0 0 112 56 56 0 1 0 0-112Z"
+      />
+    </svg>
+  );
+}
+
+function LineIcon({ kind }) {
+  if (kind === "rotary") return <RotaryIcon />;
+  return (
+    <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true" focusable="false">
+      <path d={ICONS[kind] ?? ICONS.phone} />
+    </svg>
+  );
+}
+
+/* one icon + one line of text, aligned to the first text line */
+function Line({ icon, children, multi = false }) {
+  return (
+    <span className={`footer-contact-line${multi ? " footer-contact-line--multi" : ""}`}>
+      <LineIcon kind={icon} />
+      <span className="footer-contact-line-text">{children}</span>
+    </span>
+  );
+}
+
 export function Footer({ handleAnchor }) {
   return (
     <footer className="footer">
@@ -50,50 +103,47 @@ export function Footer({ handleAnchor }) {
           <div>
             <div className="footer-contact-label">{FOOTER.addressHeading}</div>
             <div className="footer-contact-value">
-              <a href={FOOTER.addressPhoneHref}>{FOOTER.addressPhone}</a>
-              <br />
-              <a href={`mailto:${FOOTER.email}`}>{FOOTER.email}</a>
-              <br />
-              {FOOTER.address}
+              <Line icon="phone">
+                <a href={FOOTER.addressPhoneHref}>{FOOTER.addressPhone}</a>
+              </Line>
+              <Line icon="mail">
+                <a href={`mailto:${FOOTER.email}`}>{FOOTER.email}</a>
+              </Line>
+              <Line icon="map" multi>
+                <a
+                  className="footer-address-link"
+                  href={FOOTER.bookingMapHref}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {FOOTER.address}
+                </a>
+              </Line>
             </div>
           </div>
           <div>
             <div className="footer-contact-label">{FOOTER.phoneHeading}</div>
             <div className="footer-contact-value footer-phone-list">
               {FOOTER.phones.map((phone) => (
-                <a href={phone.href} key={phone.label}>
-                  {phone.label}
-                </a>
+                <Line icon={phone.type === "telephone" ? "rotary" : "phone"} key={phone.label}>
+                  <a href={phone.href}>{phone.label}</a>
+                </Line>
               ))}
             </div>
           </div>
           <div>
             <div className="footer-contact-label">{FOOTER.bookingHeading}</div>
             <div className="footer-contact-value">
-              {FOOTER.bookingAddress}
-              <br />
-              <a
-                className="footer-map-link"
-                href={FOOTER.bookingMapHref}
-                target="_blank"
-                rel="noreferrer"
-              >
-                View on Google Maps
-                <svg
-                  viewBox="0 0 24 24"
-                  width="14"
-                  height="14"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
+              <Line icon="map" multi>
+                <a
+                  className="footer-address-link"
+                  href={FOOTER.bookingMapHref}
+                  target="_blank"
+                  rel="noreferrer"
                 >
-                  <path d="M7 17 17 7" />
-                  <path d="M8 7h9v9" />
-                </svg>
-              </a>
+                  {FOOTER.bookingAddress}
+                </a>
+              </Line>
             </div>
           </div>
         </div>

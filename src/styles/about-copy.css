@@ -1,0 +1,400 @@
+/* ==========================================================================
+   About section — visuals ported from stillform.homes
+   Colours + fonts come from Al-Fatah's own token layer (tokens.css):
+     ink #0a0a0a · paper #f5f3ee · champagne gold #ddbe76
+     display face: Optima LT Pro      body/UI face: Graphik
+   ========================================================================== */
+
+.sf-about {
+  --sf-ink: var(--ink);
+  --sf-paper: var(--soft);
+  --sf-gold: var(--gold);
+
+  position: relative;
+  z-index: 20;
+  overflow-x: clip;
+  color: var(--sf-ink);
+  background: var(--sf-paper);
+  font-family: var(--font-sans);
+}
+
+/* ---- clouds + beige wash ------------------------------------------------ */
+.sf-about-clouds {
+  position: absolute;
+  left: 0;
+  top: -42vh;
+  z-index: 30;
+  height: 112vh;
+  width: 100%;
+  pointer-events: none;
+}
+
+.sf-cloud-1,
+.sf-cloud-2 {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sf-cloud-1 {
+  top: 25%;
+}
+
+.sf-cloud-2 {
+  top: 20%;
+}
+
+.sf-about-bg {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  top: -40vh;
+  z-index: 35;
+  background: var(--sf-paper);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---- stage (the pinned viewport) --------------------------------------- */
+.sf-about-stage {
+  position: relative;
+  z-index: 40;
+  height: 100svh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* invisible target: where the photo box parks before expanding */
+.sf-slot-center {
+  position: absolute;
+  left: 6%;
+  top: 24%;
+  height: 40%;
+  width: 88%;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ---- floating gallery -------------------------------------------------- */
+.sf-about-gallery {
+  position: absolute;
+  inset: 0;
+  perspective: 1200px;
+  perspective-origin: 50% 45%;
+}
+
+.sf-gallery-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 12%;
+  padding-inline: 1.6rem;
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 1.9rem;
+  line-height: 1.15;
+  color: var(--sf-ink);
+  opacity: 0;
+}
+
+.sf-tile {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  /* no transition on transform: GSAP owns it, a CSS transition would fight it */
+  transition: box-shadow 0.45s ease, filter 0.45s ease;
+  box-shadow: 0 18px 40px -22px rgba(10, 10, 10, 0.45);
+  will-change: transform;
+}
+
+.sf-tile:hover {
+  box-shadow: 0 26px 60px -20px rgba(10, 10, 10, 0.55);
+  filter: brightness(1.03);
+}
+
+.sf-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- copy layer -------------------------------------------------------- */
+.sf-text-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding-inline: 1.6rem;
+  opacity: 0;
+}
+
+.sf-text-grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.sf-eyebrow-col {
+  grid-column: span 12;
+}
+
+.sf-copy-col {
+  grid-column: span 12;
+}
+
+.sf-eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sf-ink);
+}
+
+.sf-statement {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(1.75rem, 7vw, 2.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  color: var(--sf-ink);
+}
+
+/* the inline slot the photo box morphs into */
+.sf-slot-inline {
+  display: inline-block;
+  height: 0.82em;
+  width: 1.7em;
+  margin-right: 0.18em;
+  margin-bottom: 0.14em;
+  vertical-align: bottom;
+}
+
+/* each word is masked so it can slide up from below */
+.sf-word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  margin-right: 0.25em;
+  margin-top: -1em;
+  margin-bottom: -0.1em;
+  padding-top: 0.1em;
+  padding-bottom: 0.2em;
+}
+
+.sf-word-mask > .about-word {
+  display: inline-block;
+  will-change: transform;
+}
+
+.sf-rule {
+  margin-top: 1.6rem;
+  height: 1px;
+  width: 100%;
+  background: var(--sf-ink);
+  transform-origin: left center;
+}
+
+.sf-support {
+  margin: 1.6rem 0 0;
+  max-width: 350px;
+  font-size: 1.4rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--sf-ink);
+  opacity: 0;
+}
+
+/* ---- the morphing photo box ------------------------------------------- */
+.sf-box {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 50;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  opacity: 0;
+  background: var(--soft);
+  will-change: left, top, width, height;
+}
+
+.sf-slides {
+  position: absolute;
+  inset: 0;
+}
+
+.sf-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* deck controls — sit under the eyebrow, Al-Fatah gold ring */
+.sf-arrows {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 2rem;
+  opacity: 0;
+}
+
+.sf-arrows button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  padding: 0;
+  border: 1px solid var(--sf-gold);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--sf-ink);
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.sf-arrows button:hover {
+  background: var(--sf-gold);
+  transform: scale(1.05);
+}
+
+.sf-arrows button:focus-visible {
+  outline: 2px solid var(--sf-gold);
+  outline-offset: 2px;
+}
+
+.sf-counter {
+  margin-left: 0.4rem;
+  font-size: 1.2rem;
+  letter-spacing: 0.16em;
+  color: var(--sf-ink);
+  opacity: 0.65;
+}
+
+/* ---- breakpoints ------------------------------------------------------- */
+@media (min-width: 768px) {
+  .sf-about-clouds {
+    top: -52vh;
+  }
+
+  .sf-slot-center {
+    left: 10%;
+    top: 26%;
+    height: 38%;
+    width: 80%;
+  }
+
+  .sf-text-layer {
+    padding-inline: 2.4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sf-about-stage {
+    height: 100vh;
+  }
+
+  .sf-cloud-1 {
+    top: 0;
+  }
+
+  .sf-cloud-2 {
+    top: 8%;
+  }
+
+  .sf-slot-center {
+    left: 26%;
+    top: 24%;
+    height: 38%;
+    width: 46%;
+  }
+
+  .sf-gallery-caption {
+    left: 26%;
+    right: auto;
+    top: 0;
+    width: 20%;
+    padding-inline: 0;
+    font-size: 3.5vw;
+  }
+
+  .sf-text-layer {
+    padding-inline: 4rem;
+  }
+
+  .sf-eyebrow-col {
+    grid-column: span 2;
+  }
+
+  .sf-copy-col {
+    grid-column: span 10;
+  }
+
+  .sf-text-grid {
+    gap: 1.6rem;
+  }
+
+  /* the original proportion is 5.2vw with a very tight 80% leading */
+  .sf-statement {
+    font-size: 5.2vw;
+    line-height: 0.8;
+  }
+
+  .sf-rule {
+    margin-top: 2.4rem;
+  }
+
+  .sf-support {
+    margin-top: 2.4rem;
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .sf-arrows {
+    display: none;
+  }
+
+  /* Phone / tablet: the floating collage is decorative and its tiles are laid
+     out for a wide stage, so on small screens the tiles stacked over the
+     caption and the morphing box. Give the caption the full width and push it
+     above the box, and fade the tiles back so nothing collides. */
+  .sf-about-gallery {
+    pointer-events: none;
+  }
+
+  /* The collage is a wide-screen element (the original hides it below lg as
+     well). On phones the tiles used to stack over the caption and the morphing
+     box, so they are hidden here — the caption carries the section instead. */
+  .sf-tile {
+    display: none;
+  }
+
+  .sf-gallery-caption {
+    top: 7%;
+    left: 0;
+    right: 0;
+    width: auto;
+    padding-inline: 2rem;
+    text-align: left;
+    font-size: 1.8rem;
+    line-height: 1.2;
+  }
+
+  .sf-support {
+    max-width: 34rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-arrows button {
+    transition: none;
+  }
+}

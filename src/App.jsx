@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Header } from "./components/Header.jsx";
 import { Hero } from "./components/Hero.jsx";
-import { WelcomeSection } from "./components/sections/WelcomeSection.jsx";
+import { AboutCopySection } from "./components/sections/AboutCopySection.jsx";
 import { WhyVideoSection } from "./components/sections/WhyVideoSection.jsx";
 import { ProjectsSection } from "./components/sections/ProjectsSection.jsx";
 import { StepsSection } from "./components/sections/StepsSection.jsx";
@@ -9,9 +9,12 @@ import { BlogSection } from "./components/BlogSection.jsx";
 import { InstagramSection } from "./components/sections/InstagramSection.jsx";
 import { ApprovalsSection } from "./components/sections/ApprovalsSection.jsx";
 import { ContactSection } from "./components/sections/ContactSection.jsx";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Footer } from "./components/Footer.jsx";
 import { StickyActions } from "./components/StickyActions.jsx";
+import { FatahAI } from "./components/FatahAI.jsx";
 import { useSmoothScroll } from "./hooks/useSmoothScroll.js";
+import { useFooterHidden } from "./hooks/useFooterHidden.js";
 import { useWordWipe } from "./hooks/useWordWipe.js";
 import { createScrollHelpers } from "./utils/scroll.js";
 
@@ -55,6 +58,20 @@ function App() {
   }, []);
 
   useSmoothScroll(lenisRef, heroRef);
+  useFooterHidden();
+
+  // Pinned sections change the document height AFTER first paint, so every
+  // ScrollTrigger start/end below them must be re-measured. Without this the
+  // video section's timeline ran out before the section reached the viewport.
+  useEffect(() => {
+    const refresh = () => ScrollTrigger.refresh();
+    const id = window.setTimeout(refresh, 300);
+    window.addEventListener("load", refresh);
+    return () => {
+      window.clearTimeout(id);
+      window.removeEventListener("load", refresh);
+    };
+  }, []);
   useWordWipe();
   const { goTo, handleAnchor } = createScrollHelpers(lenisRef);
 
@@ -64,18 +81,19 @@ function App() {
 
       <main>
         <Hero heroRef={heroRef} />
-        <WelcomeSection />
+        <AboutCopySection />
         <WhyVideoSection />
         <ProjectsSection goTo={goTo} />
         <StepsSection />
         <BlogSection lenisRef={lenisRef} />
         <InstagramSection />
-        <ApprovalsSection />
         <ContactSection />
+        <ApprovalsSection />
       </main>
 
       <Footer handleAnchor={handleAnchor} />
       <StickyActions />
+      <FatahAI />
     </>
   );
 }

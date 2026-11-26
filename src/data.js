@@ -42,7 +42,7 @@ export const MEDIA = {
     "/images/A complete lifestyle, now at an exceptional value.From a private gym and kids play area to pea.webp",
   ],
   gallery: ["/images/icon.jpg", "/images/elevation.jpeg", "/images/brishna-heights-booking.webp"],
-  finalCta: "/images/2.41633fa6.webp",
+  finalCta: "/images/contact-elevation-8.webp",
 };
 
 /* Fallback video of the Al-Fatah-new variant — replace later. */
@@ -81,7 +81,7 @@ export const PROJECT_MENU = [
              the real pages later. */
 export const navGroups = [
   { label: "Home", href: "#top", path: "/", items: [] },
-  { label: "About Us", href: "#welcome", path: "/about-us/", items: [] },
+  { label: "About Us", href: "#about", path: "/about-us/", items: [] },
   { label: "Services", href: "#projects", path: "/services/", items: [] },
   { label: "Our Projects", href: "#projects", path: "/our-projects/", items: PROJECT_MENU },
   { label: "Our News", href: "#news", path: "/our-news/", items: [] },
@@ -110,6 +110,37 @@ export const WELCOME = {
   question: "Have any question?",
   phone: "03112276442",
   phoneHref: "tel:+923112276442",
+};
+
+/* 3b. About (animated morph section — copy stays Al-Fatah's own) ----------- */
+export const ABOUT = {
+  eyebrow: "About",
+  statement:
+    "This isn't just about real estate. It's about identity, progress and finding alignment.",
+  support:
+    "Al Fatah Builders & Developers has been building in Gulistan-e-Johar and DHA since 2000 — work centred on human values, integrity, trust and an assurance of responsibility.",
+  caption: "More within your space",
+  clouds: [
+    "/images/about/cloud-1-cropped.webp",
+    "/images/about/cloud-2-full.webp",
+  ],
+  tiles: [
+    "/images/about/af-arcade.webp",
+    "/images/about/af-icon.webp",
+    "/images/about/af-pride.webp",
+    "/images/about/af-elevation.webp",
+    "/images/about/af-building.webp",
+    "/images/about/af-brishna.webp",
+  ],
+  slides: [
+    "/images/about/af-cta.webp",
+    "/images/about/af-building.webp",
+    "/images/about/af-icon.webp",
+    "/images/about/af-pride.webp",
+    "/images/about/af-arcade.webp",
+    "/images/about/af-brishna.webp",
+    "/images/about/af-elevation.webp",
+  ],
 };
 
 /* 4. Our Projects (rendered by the "Services" hover-row section) ----------- */
@@ -435,11 +466,12 @@ export const FOOTER = {
     { label: "TikTok", href: "https://www.tiktok.com/@alfatahgroupofficial" },
   ],
   phoneHeading: "Phone Number",
+  /* type: "telephone" = landline (rotary icon), "phone" = mobile handset icon */
   phones: [
-    { label: "021-35899471-5", href: "tel:02135899471" },
-    { label: "0321-2496381", href: "tel:03212496381" },
-    { label: "0311-2276441-3", href: "tel:03112276441" },
-    { label: "0311-2276442", href: "tel:03112276442" },
+    { label: "021-35899471-5", href: "tel:02135899471", type: "telephone" },
+    { label: "0321-2496381", href: "tel:03212496381", type: "phone" },
+    { label: "0311-2276441-3", href: "tel:03112276441", type: "phone" },
+    { label: "0311-2276442", href: "tel:03112276442", type: "phone" },
   ],
   bookingHeading: "BOOKING ADDRESS",
   bookingAddress:
@@ -455,6 +487,135 @@ export const FOOTER = {
     { label: "Reasonable Accommodation Notice", href: "#accommodation" },
     { label: "Operating Procedure", href: "#procedure" },
     { label: "Press", href: "#press" },
+  ],
+};
+
+/* 12. FATAH AI — offline assistant (no API, no key, no network) ------------ */
+export const FATAH_AI = {
+  name: "Al-Fatah AI",
+  status: "Online — instant answers",
+  greeting:
+    "Assalam-o-Alaikum! I'm Al-Fatah AI. Ask me about our projects, prices, location, approvals or booking a site visit — I'll answer instantly.",
+  placeholder: "Type your question…",
+  disclaimer:
+    "Answers come from Al-Fatah's published information. Final price and availability are confirmed by our sales team.",
+  whatsappLabel: "Talk to a human",
+  missReply:
+    "I don't have an exact answer for that yet. You can try one of the questions below, or speak to our team directly on WhatsApp:",
+  chips: ["Prices", "Projects", "Location", "Approvals", "Site visit", "Contact"],
+  intents: [
+    {
+      id: "greeting",
+      label: "Greeting",
+      keywords: ["hello", "hi", "hey", "salam", "assalam", "asalam", "aoa", "good morning", "good evening", "hy", "salaam"],
+      examples: ["hello", "assalam o alaikum"],
+      reply:
+        "Wa Alaikum Assalam and welcome! Ask me about projects, prices, location, approvals or a site visit — I'll answer straight away.",
+    },
+    {
+      id: "thanks",
+      label: "Thanks",
+      keywords: ["thanks", "thank", "thankyou", "shukriya", "shukria", "jazak", "jazakallah", "ok", "okay", "great", "perfect"],
+      examples: ["thank you", "thanks a lot"],
+      reply:
+        "You're welcome! If anything else comes up I'm right here. To book a site visit, message our team on WhatsApp.",
+    },
+    {
+      id: "projects",
+      label: "Projects",
+      keywords: ["project", "projects", "building", "buildings", "tower", "society", "scheme", "icon", "brishna", "business avenue", "avenue", "ongoing", "upcoming", "launch", "portfolio", "developments"],
+      examples: ["what projects do you have", "tell me about al fatah icon", "which projects are available"],
+      reply:
+        "Our current projects:\n• **Al Fatah Icon** — near Malir Cantt, 4 Bed + Lounge, ongoing\n• **Business Avenue** — commercial landmark, Phase I (coming soon)\n• **Brishna Heights** — Gulistan-e-Johar, residential, SBCA approved\n\nTell me which one you'd like details on.",
+    },
+    {
+      id: "prices",
+      label: "Prices",
+      keywords: ["price", "prices", "pricing", "rate", "rates", "cost", "costing", "budget", "pkr", "crore", "lakh", "payment", "payment plan", "installment", "instalment", "installments", "plan", "plans", "booking amount", "advance", "down payment", "expensive", "afford"],
+      examples: ["what is the price", "how much does it cost", "installment plan", "booking amount"],
+      reply:
+        "Al Fatah Icon is currently offered from **PKR 2.17 Crore** (down from 2.41 Crore). Payment plans and booking amounts vary by unit — the exact figure and availability are confirmed by our sales team.\n\nI can connect you to them on WhatsApp if you'd like a written quote.",
+    },
+    {
+      id: "location",
+      label: "Location",
+      keywords: ["location", "address", "where", "map", "maps", "google map", "directions", "reach", "near", "nearby", "malir", "scheme", "rehman town", "sector", "situated", "located", "site address"],
+      examples: ["where is the project located", "what is the address", "how do i reach the site"],
+      reply:
+        "Plot SB 5 & 8, Rehman Town, Sector 44, Scheme 33, University Road — near Malir Cantt Gate No 5, Karachi.\n\nGoogle Maps: https://maps.app.goo.gl/h14X4WW5o9g678cd6",
+    },
+    {
+      id: "approvals",
+      label: "Approvals",
+      keywords: ["approval", "approvals", "approved", "sbca", "noc", "abad", "legal", "legalities", "cantonment", "registered", "document", "documents", "registry", "allotment", "permission"],
+      examples: ["is it sbca approved", "what approvals do you have", "is the project legal"],
+      reply:
+        "All projects are **SBCA approved**. We are a **member of ABAD** (Membership No. FM 1731) and hold Cantonment Board Malir approval with NOC approved status. Our team can share the documents on request.",
+    },
+    {
+      id: "sitevisit",
+      label: "Site visit",
+      keywords: ["visit", "site visit", "tour", "see the site", "appointment", "timing", "timings", "office hours", "open", "meeting", "meet", "schedule"],
+      examples: ["can i visit the site", "what are your office timings", "book a site visit"],
+      reply:
+        "Site visits are by appointment — our team will walk you through the project in person. Message us on WhatsApp with your preferred day and time and we'll confirm it.",
+    },
+    {
+      id: "contact",
+      label: "Contact",
+      keywords: ["contact", "phone", "number", "call", "whatsapp", "email", "email address", "mail", "speak", "helpline", "mobile", "telephone", "reach you", "contact us"],
+      examples: ["what is your contact number", "how can i contact you", "phone number"],
+      reply:
+        "You can reach us here:\n• Phone: 0311-2276441-3\n• Landline: 021-35899471-5\n• Email: info@alfatahbuilders.com\n• WhatsApp: +92 311 2276442",
+    },
+    {
+      id: "about",
+      label: "About Al-Fatah",
+      keywords: ["about", "company", "history", "since", "1960", "experience", "who are you", "al fatah", "alfatah", "director", "trust", "vision", "mission", "background", "established"],
+      examples: ["tell me about the company", "how long have you been in business", "who is al fatah"],
+      reply:
+        "Al Fatah Builders & Developers has been in the service industry since 1960, as a corporate brokerage house at the Karachi Stock Exchange, and entered construction in 2000. Our work is concentrated in Gulistan-e-Johar and DHA — residential and commercial development built on integrity, trust and responsibility.",
+    },
+    {
+      id: "services",
+      label: "Services",
+      keywords: ["service", "services", "buy", "buying", "sell", "selling", "rent", "rental", "mortgage", "property management", "investment", "invest", "development", "construction", "plot", "flat", "apartment", "commercial"],
+      examples: ["what services do you offer", "do you sell plots", "i want to invest"],
+      reply:
+        "We handle buy, sell, rent, property management, mortgage and development/construction — for both residential and commercial clients. Tell me what you're after and I'll point you in the right direction.",
+    },
+    {
+      id: "units",
+      label: "Unit sizes",
+      keywords: ["bed", "beds", "bedroom", "bedrooms", "size", "sizes", "sqft", "sq ft", "square", "square feet", "marla", "yard", "floor", "floors", "lounge", "layout", "configuration", "how many rooms"],
+      examples: ["what are the unit sizes", "how many bedrooms", "what configurations are available"],
+      reply:
+        "Al Fatah Icon offers **4 Bed + Lounge** units. Sizes in our other projects vary by floor and unit type — tell me which project interests you and our team will share the exact sizes and available floors.",
+    },
+    {
+      id: "news",
+      label: "News",
+      keywords: ["news", "blog", "article", "articles", "update", "updates", "latest", "announcement"],
+      examples: ["any news", "latest updates", "do you have a blog"],
+      reply:
+        "Our 'Our News' section carries the latest articles and updates — buying guides, project news and company announcements. Take a look there, or tell me which topic you'd like to know about.",
+    },
+    {
+      id: "gallery",
+      label: "Photos",
+      keywords: ["photo", "photos", "picture", "pictures", "image", "images", "gallery", "video", "videos", "teaser", "render", "renders", "elevation"],
+      examples: ["show me photos", "is there a video", "gallery"],
+      reply:
+        "The site has elevations, a gallery and the teaser video. If you want photos of a specific project (Icon / Business Avenue / Brishna Heights), tell me which one and our team will send the full set on WhatsApp.",
+    },
+    {
+      id: "human",
+      label: "Human handoff",
+      keywords: ["human", "agent", "person", "representative", "sales", "salesperson", "advisor", "call me", "callback", "call back", "speak to someone", "talk to someone", "team"],
+      examples: ["can i speak to a person", "call me back", "talk to your team"],
+      reply:
+        "Of course — tap the WhatsApp button below and our team will respond right away, or call us directly on 0311-2276441-3.",
+    },
   ],
 };
 

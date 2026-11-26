@@ -1,0 +1,522 @@
+/* ==========================================================================
+   FATAH AI — launcher + chat panel
+   Launcher sits ABOVE the WhatsApp pill (sticky-actions), same gold family.
+   ========================================================================== */
+
+.fatah-ai {
+  position: fixed;
+  right: 2rem;
+  /* one row with the WhatsApp pill on the left — same bottom offset */
+  bottom: 2rem;
+  /* above .sticky-actions (80) AND the fixed site header (100), so the
+     panel is never painted behind the header while scrolling */
+  z-index: 110;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.2rem;
+  font-family: var(--font-sans);
+  transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s;
+}
+
+@media (min-width: 768px) {
+  .fatah-ai {
+    right: 3.2rem;
+    bottom: 3.2rem;
+  }
+}
+
+/* ------------------------------------------------------------- launcher -- */
+.fatah-launcher {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  height: 5.2rem;
+  padding: 0 1.8rem 0 1.2rem;
+  border: 1px solid rgba(221, 190, 118, 0.55);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #12100c 0%, #1c1811 55%, #0d0b08 100%);
+  color: #fff;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.fatah-launcher:hover,
+.fatah-launcher:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--gold);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(221, 190, 118, 0.25);
+}
+
+.fatah-launcher:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.fatah-launcher-glow {
+  position: absolute;
+  inset: -30% -10% auto -10%;
+  height: 120%;
+  background: radial-gradient(60% 60% at 22% 40%, rgba(221, 190, 118, 0.22), transparent 70%);
+  pointer-events: none;
+}
+
+/* the emblem needs its own frame: the artwork sits inside a wide transparent
+   canvas, so it is scaled up and clipped back into a circle */
+.fatah-launcher-mark {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 40%, rgba(221, 190, 118, 0.2), rgba(221, 190, 118, 0.04) 70%);
+  border: 1px solid rgba(221, 190, 118, 0.45);
+}
+
+.fatah-launcher .fatah-mark {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scale(1.15);
+}
+
+.fatah-launcher-label {
+  position: relative;
+  z-index: 1;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.fatah-launcher.is-open .fatah-launcher-label {
+  color: #fff;
+}
+
+/* ---------------------------------------------------------------- panel -- */
+.fatah-panel {
+  width: min(37rem, calc(100vw - 3rem));
+  /* fixed, compact height: the panel never grows with the conversation —
+     only the log scrolls (scrollbar hidden) */
+  height: min(50rem, calc(100vh - 16rem));
+  max-height: min(50rem, calc(100vh - 16rem));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  background: #0f1211;
+  color: #fff;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.5);
+  transform-origin: bottom right;
+  opacity: 0;
+  transform: translateY(12px) scale(0.96);
+  pointer-events: none;
+  transition: opacity 0.26s ease, transform 0.26s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.fatah-panel.is-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.fatah-head {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.15rem 1.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  background: linear-gradient(180deg, rgba(221, 190, 118, 0.1), transparent);
+}
+
+.fatah-head-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  background: rgba(221, 190, 118, 0.12);
+  border: 1px solid rgba(221, 190, 118, 0.35);
+  overflow: hidden;
+}
+
+.fatah-head-mark .fatah-mark {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scale(1.28);
+}
+
+.fatah-head-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.fatah-head-text strong {
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.fatah-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.fatah-status i {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: #3ddc84;
+  box-shadow: 0 0 0 3px rgba(61, 220, 132, 0.16);
+}
+
+.fatah-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.fatah-close:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+
+/* ---------------------------------------------------------------- log ---- */
+.fatah-log {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  /* takes whatever space is left inside the fixed-height panel */
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 1.5rem 1.4rem;
+  /* scrollable, but no visible scrollbar anywhere */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  /* own touch handling — the page must not scroll instead of the log */
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+.fatah-log:focus-visible {
+  outline: none;
+}
+
+.fatah-log::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.fatah-msg {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.8rem;
+  max-width: 100%;
+}
+
+.fatah-msg--user {
+  justify-content: flex-end;
+}
+
+.fatah-avatar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background: rgba(221, 190, 118, 0.16);
+  border: 1px solid rgba(221, 190, 118, 0.4);
+  color: var(--gold);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.fatah-bubble {
+  margin: 0;
+  padding: 1.1rem 1.3rem;
+  border-radius: 14px;
+  font-size: 1.35rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  max-width: 28rem;
+  overflow-wrap: anywhere;
+}
+
+.fatah-msg--user .fatah-bubble {
+  background: rgba(221, 190, 118, 0.16);
+  border-color: rgba(221, 190, 118, 0.34);
+  color: #fff;
+}
+
+.fatah-bubble strong {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.fatah-line {
+  display: block;
+}
+
+.fatah-typing {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 1.3rem 1.4rem;
+}
+
+.fatah-typing i {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  animation: fatah-bounce 1.1s infinite ease-in-out;
+}
+
+.fatah-typing i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.fatah-typing i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes fatah-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.55; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+
+/* --------------------------------------------------------------- chips --- */
+.fatah-chips {
+  flex: 0 0 auto;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.7rem;
+  padding: 0 1.4rem 1.2rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.fatah-chips::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.fatah-chips .fatah-chip {
+  flex: 0 0 auto;
+}
+
+.fatah-chip {
+  padding: 0.8rem 1.3rem;
+  border: 1px solid rgba(221, 190, 118, 0.42);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--gold);
+  font-size: 1.2rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.fatah-chip:hover,
+.fatah-chip:focus-visible {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--ink);
+  outline: none;
+}
+
+/* ---------------------------------------------------------------- form --- */
+.fatah-form {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0 1.4rem 1.2rem;
+}
+
+.fatah-form input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 4.4rem;
+  padding: 0 1.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-family: inherit;
+  font-size: 1.35rem;
+}
+
+.fatah-form input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.fatah-form input:focus {
+  outline: none;
+  border-color: rgba(221, 190, 118, 0.6);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.fatah-form button {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: var(--gold);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.fatah-form button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.fatah-form button:not(:disabled):hover {
+  background: var(--gold-bright, #f2e29f);
+}
+
+/* ---------------------------------------------------------------- foot --- */
+.fatah-foot {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1.1rem 1.4rem 1.4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.fatah-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #3ddc84;
+  text-decoration: none;
+}
+
+.fatah-wa:hover {
+  color: var(--gold);
+}
+
+.fatah-disclaimer {
+  font-size: 1.05rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.42);
+}
+
+/* ------------------------------------------------------------- mobile ---- */
+@media (max-width: 640px) {
+  .fatah-ai {
+    right: 1.4rem;
+    bottom: 2rem;
+  }
+
+  /* Phones: a compact circular bubble (mark only) so the pill never sits on
+     top of footer text — it still shows the 3D mark and opens the same panel. */
+  .fatah-launcher {
+    width: 5rem;
+    height: 5rem;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .fatah-launcher-mark {
+    width: 4.4rem;
+    height: 4.4rem;
+  }
+
+  .fatah-launcher-label {
+    display: none;
+  }
+
+  .fatah-panel {
+    width: calc(100vw - 2.8rem);
+    height: min(52rem, calc(100vh - 13rem));
+    max-height: min(52rem, calc(100vh - 13rem));
+  }
+
+  .fatah-log {
+    max-height: none;
+    min-height: 0;
+  }
+
+  .fatah-bubble {
+    font-size: 1.3rem;
+    max-width: 24rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fatah-panel {
+    transition: opacity 0.15s linear;
+    transform: none;
+  }
+
+  .fatah-launcher {
+    transition: none;
+  }
+
+  .fatah-launcher:hover {
+    transform: none;
+  }
+
+  .fatah-typing i {
+    animation: none;
+  }
+}
