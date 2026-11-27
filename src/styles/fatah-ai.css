@@ -121,12 +121,17 @@
   box-shadow: 0 28px 70px rgba(0, 0, 0, 0.5);
   transform-origin: bottom right;
   opacity: 0;
+  /* `display: none` while closed — a 370x570 invisible box used to sit on top
+     of the header's "Our Projects" dropdown and swallow its wheel events and
+     hovers on shorter screens. It is only laid out when actually open. */
+  display: none;
   transform: translateY(12px) scale(0.96);
   pointer-events: none;
   transition: opacity 0.26s ease, transform 0.26s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .fatah-panel.is-open {
+  display: flex;
   opacity: 1;
   transform: translateY(0) scale(1);
   pointer-events: auto;

@@ -367,3 +367,73 @@
     margin-bottom: 2.4rem;
     color: var(--gold)
 }
+/* --------------------------------------------------------------------------
+   Restore: the home form was losing its card/field styling when an inner-page
+   stylesheet loaded after this one (a generic `.field` / form reset). These
+   rules pin the home contact form's own look so it can never be overridden.
+   -------------------------------------------------------------------------- */
+#contact .contact-form {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  background: transparent;
+}
+
+#contact .contact-field-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  min-height: 5.5rem;
+  padding: 0 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 0.7rem;
+  background: rgba(255, 255, 255, 0.045);
+  color: rgba(255, 255, 255, 0.66);
+  transition: border-color 0.22s, background 0.22s;
+}
+
+#contact .contact-field-wrap:focus-within {
+  border-color: #e2b971;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+#contact .contact-field-wrap input,
+#contact .contact-field-wrap textarea {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #fff;
+  font: 1.35rem var(--font-sans);
+}
+
+#contact .contact-field-wrap input::placeholder,
+#contact .contact-field-wrap textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+#contact .contact-message-wrap {
+  align-items: flex-start;
+  padding-top: 1.6rem;
+  padding-bottom: 1.6rem;
+}
+
+#contact .contact-message-wrap textarea {
+  min-height: 9rem;
+  resize: vertical;
+}
+
+#contact .contact-form-card {
+  padding: clamp(2.6rem, 4vw, 4.6rem);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 1.8rem;
+  background: rgba(17, 23, 26, 0.54);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 2.4rem 7rem rgba(0, 0, 0, 0.24);
+}
+
+#contact .contact-submit-pill {
+  width: 100%;
+  justify-content: center;
+}

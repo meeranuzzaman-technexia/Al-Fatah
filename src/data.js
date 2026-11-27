@@ -20,7 +20,7 @@ export const BRAND = {
 /* Local placeholder images (already in this repo) — swap these later. */
 export const MEDIA = {
   hero: "/images/back.f53e9773.webp",
-  director: "/images/Ahmed Mazhar.webp",
+  director: "/images/about-director.webp",
   project: [
     "/images/icon.webp",
     "/images/building.webp",
@@ -37,9 +37,9 @@ export const MEDIA = {
     "/images/blog-brishna-heights-booking.webp",
   ],
   instagram: [
-    "/images/A complete lifestyle, now at an exceptional value.From a private gym and kids play area to pea.webp",
-    "/images/A complete lifestyle, now at an exceptional value.From a private gym and kids play area to pea.webp",
-    "/images/A complete lifestyle, now at an exceptional value.From a private gym and kids play area to pea.webp",
+    "/images/ig-post-1.webp",
+    "/images/ig-post-2.webp",
+    "/images/ig-post-3.webp",
   ],
   gallery: ["/images/icon.webp", "/images/elevation.webp", "/images/blog-brishna-heights-booking.webp"],
   finalCta: "/images/contact-elevation-8.webp",
@@ -79,13 +79,15 @@ export const PROJECT_MENU = [
 /* `href` = working in-page anchor for this single-page build.
    `path`  = the exact destination from the source site, kept for wiring up
              the real pages later. */
+/* `path` drives the real inner-page route; `href` is the in-page anchor used
+   when you are already on the home page. */
 export const navGroups = [
-  { label: "Home", href: "#top", path: "/", items: [] },
-  { label: "About Us", href: "#about", path: "/about-us/", items: [] },
-  { label: "Services", href: "#projects", path: "/services/", items: [] },
-  { label: "Our Projects", href: "#projects", path: "/our-projects/", items: PROJECT_MENU },
-  { label: "Our News", href: "#news", path: "/our-news/", items: [] },
-  { label: "Contact Us", href: "#contact", path: "/contact-us/", items: [] },
+  { label: "Home", href: "/", path: "/", items: [] },
+  { label: "About Us", href: "/about-us/", path: "/about-us/", items: [] },
+  { label: "Services", href: "/services/", path: "/services/", items: [] },
+  { label: "Our Projects", href: "/our-projects/", path: "/our-projects/", items: PROJECT_MENU },
+  { label: "Our News", href: "/our-news/", path: "/our-news/", items: [] },
+  { label: "Contact Us", href: "/contact-us/", path: "/contact-us/", items: [] },
 ];
 
 /* 2. Hero ------------------------------------------------------------------ */

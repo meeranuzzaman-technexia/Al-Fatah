@@ -192,11 +192,20 @@
   position: absolute;
   top: calc(100% - 1.2rem);
   left: 50%;
+  /* `touch` keeps a real scrollable area on phones; `contain` stops the wheel
+     from bleeding into the page behind the menu. */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(10, 10, 10, 0.28) transparent;
   transform: translate(-50%, 0.8rem);
   min-width: 34rem;
-  max-height: 70vh;
-  overflow-y: auto;
+  /* never taller than the space under the bar (8.4rem bar + a little air) */
+  max-height: min(70vh, calc(100vh - 12rem));
   padding: 0.8rem 0;
+  padding-right: 0.2rem;
   background: #ffffff;
   color: #0a0a0a;
   border: 1px solid rgba(10, 10, 10, 0.12);
@@ -206,10 +215,38 @@
   transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
 }
 
+/* visible, slim scrollbar so people know there is more below */
+.nav-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.nav-dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.nav-dropdown::-webkit-scrollbar-thumb {
+  border-radius: 99px;
+  background: rgba(10, 10, 10, 0.25);
+}
+
+.nav-dropdown::-webkit-scrollbar-thumb:hover {
+  background: rgba(10, 10, 10, 0.4);
+}
+
 .nav-item.open .nav-dropdown {
   opacity: 1;
   visibility: visible;
   transform: translate(-50%, 0);
+}
+
+/* invisible bridge across the gap between the nav link and the panel */
+.nav-dropdown::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1.6rem;
+  height: 1.6rem;
 }
 
 .nav-dropdown-group + .nav-dropdown-group {
@@ -243,12 +280,39 @@
   color: var(--gold-deep);
 }
 
-/* Header Call Now pill */
+/* Header Call Now pill — sticky bar only.
+   Over the hero the header shows just the nav; the pill fades in with the
+   compact (scrolled) bar. max-width/visibility keep it out of the layout when
+   hidden so it can never leave an empty gap on the right. */
 .header-actions {
   position: relative;
   z-index: 3;
   display: flex;
   align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  max-width: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translateX(1.2rem);
+  transition:
+    opacity 0.35s ease,
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    max-width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0.35s;
+}
+
+.site-header.sticky .header-actions {
+  opacity: 1;
+  visibility: visible;
+  max-width: 25rem;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.mobile-menu {
+  /* the drawer sits above the page but never under the sticky pill */
+  z-index: 99;
 }
 
 /* Mobile burger + crisp white drawer */

@@ -17,8 +17,38 @@ import { useSmoothScroll } from "./hooks/useSmoothScroll.js";
 import { useFooterHidden } from "./hooks/useFooterHidden.js";
 import { useWordWipe } from "./hooks/useWordWipe.js";
 import { createScrollHelpers } from "./utils/scroll.js";
+import { useRoute } from "./utils/router.js";
+import {
+  AboutPage,
+  ServicesPage,
+  ProjectsPage,
+  ProjectPage,
+  NewsPage,
+  ContactPage,
+  TermsPage,
+  NotFoundPage,
+} from "./components/pages/Pages.jsx";
+
+const PROJECT_SLUGS = ["al-fatah-business-avenue", "al-fatah-icon", "brishna-heights", "al-fatah-pride", "al-fatah-arcade"];
+
+function HomePage({ heroRef, goTo, lenisRef }) {
+  return (
+    <main>
+      <Hero heroRef={heroRef} />
+      {/* <AboutCopySection /> */}
+      <WhyVideoSection />
+      <ProjectsSection goTo={goTo} />
+      <StepsSection />
+      <BlogSection lenisRef={lenisRef} />
+      <InstagramSection />
+      <ContactSection />
+      <ApprovalsSection />
+    </main>
+  );
+}
 
 function App() {
+  const route = useRoute();
   const [headerSticky, setHeaderSticky] = useState(false);
   const [headerHidden, setHeaderHidden] = useState(false);
   const lenisRef = useRef(null);
@@ -77,19 +107,27 @@ function App() {
 
   return (
     <>
-      <Header goTo={goTo} sticky={headerSticky} hidden={headerHidden} />
+      <Header goTo={goTo} sticky={route !== "/" || headerSticky} hidden={route === "/" && headerHidden} />
 
-      <main>
-        <Hero heroRef={heroRef} />
-        {/* <AboutCopySection /> */}
-        <WhyVideoSection />
-        <ProjectsSection goTo={goTo} />
-        <StepsSection />
-        <BlogSection lenisRef={lenisRef} />
-        <InstagramSection />
-        <ContactSection />
-        <ApprovalsSection />
-      </main>
+      {route === "/" ? (
+        <HomePage heroRef={heroRef} goTo={goTo} lenisRef={lenisRef} />
+      ) : route === "/about-us" ? (
+        <AboutPage />
+      ) : route === "/services" ? (
+        <ServicesPage />
+      ) : route === "/our-projects" ? (
+        <ProjectsPage />
+      ) : route === "/our-news" ? (
+        <NewsPage />
+      ) : route === "/contact-us" ? (
+        <ContactPage />
+      ) : route === "/terms-and-conditions" ? (
+        <TermsPage />
+      ) : PROJECT_SLUGS.includes(route.replace(/^\//, "")) ? (
+        <ProjectPage slug={route.replace(/^\//, "")} />
+      ) : (
+        <NotFoundPage />
+      )}
 
       <Footer handleAnchor={handleAnchor} />
       <StickyActions />

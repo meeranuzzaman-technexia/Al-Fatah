@@ -1,3 +1,9 @@
 .env
 /node_modules
 /build
+/dist
+/backup
+/.backup
+/shots*/
+/*.py
+/shot_*

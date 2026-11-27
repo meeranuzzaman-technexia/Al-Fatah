@@ -1,13 +1,30 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronDown } from "./Brand.jsx";
 import { PillLink } from "./Pill.jsx";
 import { HEADER_CTA, navGroups } from "../data.js";
+import { navigate } from "../utils/router.js";
 import "../styles/header.css";
 
 export function Header({ goTo, sticky, hidden }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [mobileGroup, setMobileGroup] = useState(null);
+  // A pointer leaving the nav item closes the mega menu — but the dropdown sits
+  // a few pixels below the link, so a plain onMouseLeave closed it the moment
+  // the cursor travelled towards the panel. A short grace period fixes that.
+  const dropdownTimer = useRef(null);
+
+  const openMenuFor = useCallback((key) => {
+    window.clearTimeout(dropdownTimer.current);
+    setOpenDropdown(key);
+  }, []);
+
+  const scheduleClose = useCallback(() => {
+    window.clearTimeout(dropdownTimer.current);
+    dropdownTimer.current = window.setTimeout(() => setOpenDropdown(null), 180);
+  }, []);
+
+  useEffect(() => () => window.clearTimeout(dropdownTimer.current), []);
 
   useEffect(() => {
     const onKeyDown = (event) => {
@@ -24,23 +41,33 @@ export function Header({ goTo, sticky, hidden }) {
     setOpenDropdown(null);
   };
 
+  // In-page anchors (#top, #contact …) only exist on the home page; anything
+  // else is a real route, so the whole site works as a normal multi-page site.
   const onAnchor = (event, href) => {
     event.preventDefault();
     closeMenu();
-    goTo(href);
+    if (href.startsWith("#")) {
+      goTo(href);
+      return;
+    }
+    navigate(href);
   };
 
   const renderDropdown = (group) => (
-    <div className="nav-dropdown">
+    <div
+      className="nav-dropdown"
+      data-lenis-prevent
+      data-lenis-prevent-wheel
+      onMouseEnter={() => window.clearTimeout(dropdownTimer.current)}
+    >
       {group.items.map((section) => (
         <div className="nav-dropdown-group" key={section.group}>
           <span className="nav-dropdown-title">{section.group}</span>
           {section.links.map((link) => (
             <a
               key={link.label}
-              href="#projects"
-              data-path={link.href}
-              onClick={(event) => onAnchor(event, "#projects")}
+              href={link.href}
+              onClick={(event) => onAnchor(event, link.href)}
             >
               {link.label}
             </a>
@@ -56,8 +83,9 @@ export function Header({ goTo, sticky, hidden }) {
       <div
         className={`nav-item ${openDropdown === key ? "open" : ""}`}
         key={key}
-        onMouseEnter={() => group.items.length && setOpenDropdown(key)}
-        onMouseLeave={() => setOpenDropdown(null)}
+        onMouseEnter={() => group.items.length && openMenuFor(key)}
+        onMouseLeave={() => group.items.length && scheduleClose()}
+        onFocus={() => group.items.length && openMenuFor(key)}
       >
         <a className="nav-link" href={group.href} onClick={(event) => onAnchor(event, group.href)}>
           <span data-text={group.label}>{group.label}</span>
@@ -84,8 +112,8 @@ export function Header({ goTo, sticky, hidden }) {
           {/* Animated center-to-left brand logo */}
           <a
             className="brand-link"
-            href="#top"
-            onClick={(event) => onAnchor(event, "#top")}
+            href="/"
+            onClick={(event) => onAnchor(event, "/")}
             aria-label="Al-Fatah — Builders & Developers home"
           >
             <img
@@ -147,9 +175,8 @@ export function Header({ goTo, sticky, hidden }) {
                     {section.links.map((link) => (
                       <a
                         key={link.label}
-                        href="#projects"
-                        data-path={link.href}
-                        onClick={(event) => onAnchor(event, "#projects")}
+                        href={link.href}
+                        onClick={(event) => onAnchor(event, link.href)}
                       >
                         {link.label}
                       </a>
