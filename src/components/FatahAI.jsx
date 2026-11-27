@@ -22,7 +22,7 @@ const INK = "#0a0a0a";
 function FatahMark({ size = 44 }) {
   return (
     <img
-      src="/images/alfatah-emblem.png"
+      src="/images/alfatah-emblem.webp"
       alt=""
       className="fatah-mark"
       width={size}

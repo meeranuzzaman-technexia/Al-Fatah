@@ -735,7 +735,7 @@
   margin-top: 5.6rem;
   /* right padding reserves the lane of the floating WhatsApp / Call pills so
      they never sit on top of "technexia."; bottom padding stays tight */
-  padding: 3.2rem 0 2.8rem 0;
+  padding: 3.2rem 3.2rem 2.8rem 0;
   color: rgba(255, 255, 255, 0.55);
   font-size: 1.3rem;
   line-height: 1.4;
@@ -1113,20 +1113,5 @@
 .footer .footer-address-link:focus-visible {
   color: var(--gold);
 }
-@media (max-width: 720px) {
-  .footer .footer-bottom {
-    align-items: center !important;
-    text-align: center !important;
-  }
-
-  .footer .footer-copyright,
-  .footer .footer-credit-line {
-    text-align: center !important;
-    width: 100%;
-  }
-
-  .footer .legal-links {
-    align-items: center !important;
-    text-align: center !important;
-  }
-}
+/* NOTE: the old mobile "centre everything" block lives upstream but is
+   intentionally NOT used here — the mobile footer is a left-aligned list. */

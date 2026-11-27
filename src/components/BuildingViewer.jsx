@@ -6,7 +6,7 @@ const MAX_SHIFT = 14; // px the photo drifts against the frame
 const KEY_STEP = 0.35; // how far one arrow key press moves (range is -1 to 1)
 
 export function BuildingViewer({
-  src = "/images/elevation.jpeg",
+  src = "/images/elevation.webp",
   alt = "Night render of the Al Fatah Business Avenue tower",
   className = "",
 }) {

@@ -12,14 +12,14 @@ export function Hero({ heroRef }) {
             <img src="/images/back.f53e9773.webp" alt="" />
           </div>
           <div className="hero-house">
-            <img src="/images/luxury-mixed-use-building-cutout.png" alt="" />
+            <img src="/images/luxury-mixed-use-building-cutout.webp" alt="" />
           </div>
           <div className="hero-clouds">
             <div className="hero-cloud left">
-              <img src="/images/cloud.c8800fa9.png" alt="" />
+              <img src="/images/cloud.c8800fa9.webp" alt="" />
             </div>
             <div className="hero-cloud right">
-              <img src="/images/cloud.c8800fa9.png" alt="" />
+              <img src="/images/cloud.c8800fa9.webp" alt="" />
             </div>
           </div>
           {/* .hero-smoke removed — its PNG painted a hard grey horizontal band

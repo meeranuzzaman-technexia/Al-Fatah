@@ -22,11 +22,11 @@ export const MEDIA = {
   hero: "/images/back.f53e9773.webp",
   director: "/images/Ahmed Mazhar.webp",
   project: [
-    "/images/icon.jpg",
-    "/images/building.jpg",
-    "/images/pride.jpg",
-    "/images/arcade.jpg",
-    "/images/building cut.png",
+    "/images/icon.webp",
+    "/images/building.webp",
+    "/images/pride.webp",
+    "/images/arcade.webp",
+    "/images/building cut.webp",
   ],
   news: [
     "/images/news/apartments-with-elevators-in-karachi.webp",
@@ -41,7 +41,7 @@ export const MEDIA = {
     "/images/A complete lifestyle, now at an exceptional value.From a private gym and kids play area to pea.webp",
     "/images/A complete lifestyle, now at an exceptional value.From a private gym and kids play area to pea.webp",
   ],
-  gallery: ["/images/icon.jpg", "/images/elevation.jpeg", "/images/brishna-heights-booking.webp"],
+  gallery: ["/images/icon.webp", "/images/elevation.webp", "/images/news/brishna-heights-booking.webp"],
   finalCta: "/images/contact-elevation-8.webp",
 };
 
@@ -128,7 +128,7 @@ export const ABOUT = {
     "/images/about/af-arcade.webp",
     "/images/about/af-icon.webp",
     "/images/about/af-pride.webp",
-    "/images/about/af-elevation.webp",
+    "/images/elevation.webp",
     "/images/about/af-building.webp",
     "/images/about/af-brishna.webp",
   ],
@@ -139,7 +139,7 @@ export const ABOUT = {
     "/images/about/af-pride.webp",
     "/images/about/af-arcade.webp",
     "/images/about/af-brishna.webp",
-    "/images/about/af-elevation.webp",
+    "/images/elevation.webp",
   ],
 };
 
@@ -163,7 +163,7 @@ export const PROJECTS = {
       price: "Coming Soon",
       status: "Coming Soon",
       href: "/al-fatah-business-avenue/",
-      image: "/images/elevation.jpeg",
+      image: "/images/elevation.webp",
     },
     {
       num: "02",
@@ -220,7 +220,7 @@ export const ELEVATION = {
     "Explore the architectural night elevation of our upcoming flagship commercial and corporate landmark. Move your pointer or use the arrow keys to tilt the facade.",
   cta: "Book Inquiry",
   ctaHref: "#contact",
-  image: "/images/elevation.jpeg",
+  image: "/images/elevation.webp",
   alt: "Night render of the Al Fatah Business Avenue tower",
   hint: "Interactive 3D View — Move cursor or ↑ ↓ ← → keys (Esc to reset)",
   meta: "Al Fatah Builders & Developers · Karachi",
@@ -369,14 +369,14 @@ export const INSTAGRAM = {
 export const APPROVALS = {
   memberHeading: "Member of",
   member: "ABAD",
-  memberLogo: "/images/abad-logo.png",
+  memberLogo: "/images/abad-logo.webp",
   memberHref: "https://abad.com.pk/",
   membershipNumber: "Membership Number: FM 1731",
   claim: "All Projects Are SBCA Approved.",
   approvalsHeading: "Approvals",
   approvals: [
-    { label: "Cantonment Board Malir", logo: "/images/malir-board-logo.png" },
-    { label: "NOC Approved", logo: "/images/noc-approved-logo.png" },
+    { label: "Cantonment Board Malir", logo: "/images/malir-board-logo.webp" },
+    { label: "NOC Approved", logo: "/images/noc-approved-logo.webp" },
   ],
   intro: "Al Fatah Builders & Developers — in service since 1960.",
 };
