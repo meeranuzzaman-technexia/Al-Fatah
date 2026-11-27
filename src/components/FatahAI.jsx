@@ -136,9 +136,9 @@ export function FatahAI() {
           </span>
           <span className="fatah-head-text">
             <strong>{FATAH_AI.name}</strong>
-            <span className="fatah-status">
+            {/* <span className="fatah-status">
               <i aria-hidden="true" /> {FATAH_AI.status}
-            </span>
+            </span> */}
           </span>
           <button
             type="button"
