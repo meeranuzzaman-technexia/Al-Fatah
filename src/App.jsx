@@ -81,7 +81,7 @@ function App() {
 
       <main>
         <Hero heroRef={heroRef} />
-        <AboutCopySection />
+        {/* <AboutCopySection /> */}
         <WhyVideoSection />
         <ProjectsSection goTo={goTo} />
         <StepsSection />
